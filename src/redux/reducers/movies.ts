@@ -1,38 +1,26 @@
-import { Movie } from "../models/Movie";
-import { MovieAction, ILoadMoviesSuccess, ILoadMoviesFailure } from "./actions";
-import { handleAsyncAction } from "../actions/asyncAction";
-
-export type MoviesState = {
-  status: string;
-  errorMessage: string | null;
-  all: Movie[];
-};
+import { MoviesState, MoviesActionTypes } from "../movies/types";
+import { Reducer } from "redux";
 
 const initialState: MoviesState = {
-  status: "",
-  errorMessage: null,
-  all: []
+  loading: false,
+  errorMessage: undefined,
+  movies: []
 };
 
-export default function(state = initialState, action: MovieAction) {
+const reducer: Reducer<MoviesState> = (state = initialState, action) => {
   switch (action.type) {
-    case "LOAD_MOVIES":
-      return handleAsyncAction(state, action, {
-        start: _ => ({ ...state, status: action.status }),
-
-        success: _ => ({
-          ...state,
-          status: action.status,
-          all: (<ILoadMoviesSuccess>action).payload.movies
-        }),
-
-        failure: _ => ({
-          ...state,
-          status: action.status,
-          errorMessage: (<ILoadMoviesFailure>action).payload.error
-        })
-      });
+    case MoviesActionTypes.FETCH_REQUEST: {
+      return { ...state, loading: true };
+    }
+    case MoviesActionTypes.FETCH_SUCCESS: {
+      return { ...state, loading: false, movies: action.payload };
+    }
+    case MoviesActionTypes.FETCH_ERROR: {
+      return { ...state, loading: false, errorMessage: action.payload };
+    }
     default:
       return state;
   }
-}
+};
+
+export { reducer as moviesReducer };

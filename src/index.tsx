@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import MainPage from "./MainPage";
+import MainPage from "./pages/MainPage";
 import { Provider } from "react-redux";
 import { Route, Switch } from "react-router"; // react-router v4
 import { ConnectedRouter } from "connected-react-router";

@@ -7,15 +7,17 @@ import {
   combineReducers
 } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
-import thunk from "redux-thunk";
 import { createBrowserHistory } from "history";
 import {
   routerMiddleware,
   connectRouter,
   RouterState
 } from "connected-react-router";
-import { StateType } from "typesafe-actions";
-import movies, { MoviesState } from "./reducers/movies";
+import { moviesReducer } from "./reducers/movies";
+import { MoviesState } from "./movies/types";
+import moviesSaga from "./movies/sagas";
+import { fork, all } from "redux-saga/effects";
+import createSagaMiddleware from "redux-saga";
 
 const composeEnhancers = composeWithDevTools({
   trace: true
@@ -25,13 +27,17 @@ export const history = createBrowserHistory();
 
 export const rootReducer = combineReducers<AppState>({
   router: connectRouter(history),
-  movies
+  movies: moviesReducer
 });
+
+const sagaMiddleware = createSagaMiddleware()
 
 export const store = createStore(
   rootReducer,
-  composeEnhancers(applyMiddleware(routerMiddleware(history), thunk))
+  composeEnhancers(applyMiddleware(routerMiddleware(history), sagaMiddleware))
 );
+
+sagaMiddleware.run(rootSaga)
 
 export interface ConnectedReduxProps<A extends Action = AnyAction> {
   dispatch: Dispatch<A>;
@@ -40,4 +46,8 @@ export interface ConnectedReduxProps<A extends Action = AnyAction> {
 export interface AppState {
   router: RouterState;
   movies: MoviesState;
+}
+
+export function* rootSaga() {
+  yield all([fork(moviesSaga)])
 }
