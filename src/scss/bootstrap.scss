@@ -1,6 +1,22 @@
 @import "./_variables.scss";
 @import "~bootstrap/scss/bootstrap.scss";
 @import "./_bootswatch.scss";
+@import url("https://fonts.googleapis.com/css?family=Quicksand");
+
+.movie-preview {
+  font-family: "Quicksand", sans-serif;
+}
+.carousel-caption {
+  color: #ebebeb;
+}
+
+.movie-preview-title {
+  font-size: 56px;
+}
+
+.movie-preview-genres {
+  font-size: 18px;
+}
 
 .movie-preview-overlay::after {
   position: absolute;
