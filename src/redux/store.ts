@@ -1,9 +1,21 @@
-import { createStore, applyMiddleware } from "redux";
+import {
+  createStore,
+  applyMiddleware,
+  Action,
+  AnyAction,
+  Dispatch,
+  combineReducers
+} from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
-import createRootReducer from "./reducers/rootReducer";
 import thunk from "redux-thunk";
 import { createBrowserHistory } from "history";
-import { routerMiddleware } from "connected-react-router";
+import {
+  routerMiddleware,
+  connectRouter,
+  RouterState
+} from "connected-react-router";
+import { StateType } from "typesafe-actions";
+import movies, { MoviesState } from "./reducers/movies";
 
 const composeEnhancers = composeWithDevTools({
   trace: true
@@ -11,9 +23,21 @@ const composeEnhancers = composeWithDevTools({
 
 export const history = createBrowserHistory();
 
-const store = createStore(
-  createRootReducer(history),
+export const rootReducer = combineReducers<AppState>({
+  router: connectRouter(history),
+  movies
+});
+
+export const store = createStore(
+  rootReducer,
   composeEnhancers(applyMiddleware(routerMiddleware(history), thunk))
 );
 
-export default store;
+export interface ConnectedReduxProps<A extends Action = AnyAction> {
+  dispatch: Dispatch<A>;
+}
+
+export interface AppState {
+  router: RouterState;
+  movies: MoviesState;
+}

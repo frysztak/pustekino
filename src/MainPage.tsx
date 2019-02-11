@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Redux from "redux";
 import { connect } from "react-redux";
 import "./scss/bootstrap.scss";
 import Carousel from "react-bootstrap/Carousel";
@@ -6,54 +7,62 @@ import { MoviePreviewProps, MoviePreview } from "./components/MoviePreview";
 import { loadMovies } from "./redux/reducers/actions";
 import { NavBar } from "./components/NavBar";
 import { Movie } from "./redux/models/Movie";
+import { MoviesState } from "./redux/reducers/movies";
+import { ConnectedReduxProps } from "./redux/store";
+import { RouteComponentProps } from "react-router";
 
-type Props = {
+interface OwnProps {}
+
+interface StateProps {
   loadStatus: string;
-  errorMessage: string;
   movies: Movie[];
-};
+}
 
-class MainPage extends Component {
+interface DispatchProps {
+  load: () => void;
+}
+
+type Props = StateProps & DispatchProps & ConnectedReduxProps;
+
+class MainPage extends Component<Props> {
   componentDidMount() {
-    (this.props as any).load();
+    console.log(this.props);
+    if (!this.props.movies || this.props.movies.length === 0) {
+      this.props.load();
+    }
   }
 
   render() {
-    const movies: MoviePreviewProps[] = [
-      {
-        movieName: "Lego Movie",
-        runtime: 107,
-        genres: ["Familijny", "Animowany", "Przygodowy"],
-        desktopImage:
-          "https://multikino.pl/-/media/images/home-page/slider-hero-component/lego2-slider-d.jpg",
-        mobileImage:
-          "https://multikino.pl/-/media/images/home-page/slider-hero-component/lego2-slider-m.jpg"
-      }
-    ];
-
     return (
       <div>
         <NavBar />
 
         <Carousel indicators={false}>
-          {movies.map((movie, i) => (
-            <Carousel.Item key={i}>
-              <MoviePreview {...movie} />
-            </Carousel.Item>
-          ))}
+          {this.props.movies
+            ? this.props.movies
+                .filter(
+                  movie => movie.hero_url_desktop && movie.hero_url_mobile
+                )
+                .map((movie, i) => (
+                  <Carousel.Item key={i}>
+                    <MoviePreview movie={movie} />
+                  </Carousel.Item>
+                ))
+            : null}
         </Carousel>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state: any) => ({
-  loadStatus: state.movies.status
+const mapStateToProps = (state: MoviesState): StateProps => ({
+  loadStatus: state.status,
+  movies: state.all
 });
 
-const mapDispatchToProps = {
-  load: loadMovies
-};
+const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
+  load: () => loadMovies()(dispatch)
+});
 
 export default connect(
   mapStateToProps,

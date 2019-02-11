@@ -2,7 +2,7 @@ import { Movie } from "../models/Movie";
 import { MovieAction, ILoadMoviesSuccess, ILoadMoviesFailure } from "./actions";
 import { handleAsyncAction } from "../actions/asyncAction";
 
-type MoviesState = {
+export type MoviesState = {
   status: string;
   errorMessage: string | null;
   all: Movie[];

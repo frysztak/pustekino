@@ -5,7 +5,7 @@ import MainPage from "./MainPage";
 import { Provider } from "react-redux";
 import { Route, Switch } from "react-router"; // react-router v4
 import { ConnectedRouter } from "connected-react-router";
-import store, { history } from "./redux/store";
+import { history, store } from "./redux/store";
 import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
@@ -13,7 +13,7 @@ ReactDOM.render(
     <ConnectedRouter history={history}>
       <>
         <Switch>
-          <Route exact path="/" render={() => <MainPage />} />
+          <Route exact path="/" component={MainPage} />
           <Route render={() => <div>Miss</div>} />
         </Switch>
       </>

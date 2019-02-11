@@ -4,37 +4,34 @@ import Carousel from "react-bootstrap/Carousel";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { Movie } from "../redux/models/Movie";
 
 export interface MoviePreviewProps {
-  movieName: string;
-  genres: string[];
-  runtime: number; // in minutes
-  desktopImage: string;
-  mobileImage: string;
+  movie: Movie;
 }
 
-export const MoviePreview = (props: MoviePreviewProps) => {
+export const MoviePreview: React.FC<MoviePreviewProps> = props => {
   const sections = [];
-  for (const genre of props.genres) {
+  for (const genre of props.movie.genres) {
     sections.push(genre);
     sections.push("|");
   }
-  sections.push(`${props.runtime} minut`);
+  sections.push(`${props.movie.runtime} minut`);
 
   return (
     <div>
       <div className="w-100 d-none d-md-block movie-preview-overlay">
-        <Image className="w-100" src={props.desktopImage} />
+        <Image className="w-100" src={props.movie.hero_url_desktop} />
       </div>
       <div className="w-100 d-block d-md-none movie-preview-overlay">
-        <Image className="w-100" src={props.mobileImage} />
+        <Image className="w-100" src={props.movie.hero_url_mobile} />
       </div>
 
       <Carousel.Caption>
         <Container className="text-left">
           <Row>
             <Col>
-              <h1>{props.movieName}</h1>
+              <h1>{props.movie.title_pl}</h1>
             </Col>
           </Row>
           <Row className="d-none d-md-flex">
