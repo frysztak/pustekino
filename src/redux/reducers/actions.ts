@@ -1,28 +1,47 @@
-import { Movie } from "./Movie";
+import { Movie } from "../models/Movie";
+import { AsyncAction } from "../actions/asyncAction";
 
-export const LOAD_MOVIES = "LOAD_MOVIES";
-export const ADD_MOVIES = "ADD_MOVIES";
+export type MovieActionType = "LOAD_MOVIES";
 
-export interface LoadMoviesAction {
-  type: string;
-  payload: {};
-}
-
-export interface AddMoviesAction {
-  type: string;
+export type ILoadMoviesStart = AsyncAction<MovieActionType>;
+export type ILoadMoviesSuccess = AsyncAction<MovieActionType> & {
   payload: { movies: Movie[] };
+};
+export type ILoadMoviesFailure = AsyncAction<MovieActionType> & {
+  payload: { error: string };
+};
+
+export type MovieAction =
+  | ILoadMoviesStart
+  | ILoadMoviesSuccess
+  | ILoadMoviesFailure;
+
+export function loadMovies() {
+  return async (dispatch: any) => {
+    dispatch({
+      type: "LOAD_MOVIES",
+      status: "start"
+    });
+
+    try {
+      const resp = await fetch(`${process.env.REACT_APP_API_BASE_URL}/movies`);
+      const json = await resp.json();
+      const movies = json as Movie[];
+
+      dispatch({
+        type: "LOAD_MOVIES",
+        status: "success",
+        payload: { movies: movies }
+      });
+    } catch (err) {
+      console.log(err);
+      dispatch({
+        type: "LOAD_MOVIES",
+        status: "failure",
+        payload: { error: err }
+      });
+    }
+  };
 }
-
-export type MovieAction = LoadMoviesAction | AddMoviesAction;
-
-export const loadMovies = (): LoadMoviesAction => ({
-  type: LOAD_MOVIES,
-  payload: {}
-});
-
-export const addMovies = (movies: Movie[]): AddMoviesAction => ({
-  type: ADD_MOVIES,
-  payload: { movies }
-});
 
 export type Action = MovieAction;
