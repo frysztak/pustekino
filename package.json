@@ -5,7 +5,7 @@
   "dependencies": {
     "@types/jest": "23.3.13",
     "@types/node": "10.12.21",
-    "bootstrap": "^4.2.1",
+    "bootstrap": "^4.3.0",
     "connected-react-router": "^6.3.0",
     "history": "^4.7.2",
     "react": "^16.7.0",
