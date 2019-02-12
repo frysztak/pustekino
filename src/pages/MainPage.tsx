@@ -9,6 +9,10 @@ import { ConnectedReduxProps, AppState } from "../redux/store";
 import { Movie } from "../redux/movies/types";
 import { fetchRequest } from "../redux/movies/actions";
 import ProgressBar from "react-bootstrap/ProgressBar";
+import Container from "react-bootstrap/Container";
+import Col from "react-bootstrap/Col";
+import { MoviePoster } from "../components/MoviePoster";
+import Row from "react-bootstrap/Row";
 
 interface OwnProps {}
 
@@ -42,11 +46,24 @@ class MainPage extends Component<Props> {
       </Carousel>
     );
 
+    const posters = (
+      <Container>
+        <Row>
+          {this.props.movies.map((movie, i) => (
+            <Col>
+              <MoviePoster movie={movie} />
+            </Col>
+          ))}
+        </Row>
+      </Container>
+    );
+
     return (
       <div>
         <NavBar />
 
         {this.props.loading ? <ProgressBar /> : { ...carousel }}
+        {this.props.loading ? <ProgressBar /> : { ...posters }}
       </div>
     );
   }

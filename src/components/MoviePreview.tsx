@@ -30,8 +30,8 @@ export const MoviePreview: React.FC<MoviePreviewProps> = props => {
       <Carousel.Caption>
         <Container className="text-left">
           <Row>
-            <Col className="movie-preview-title">
-              {props.movie.title_pl}
+            <Col>
+              <h1>{props.movie.title_pl}</h1>
             </Col>
           </Row>
           <Row className="d-none d-md-flex movie-preview-genres">
