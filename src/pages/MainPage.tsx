@@ -30,7 +30,9 @@ type Props = StateProps & DispatchProps & ConnectedReduxProps;
 
 class MainPage extends Component<Props> {
   componentDidMount() {
-    this.props.load();
+    if (this.props.movies.length === 0) {
+      this.props.load();
+    }
   }
 
   render() {
