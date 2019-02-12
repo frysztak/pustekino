@@ -28,3 +28,8 @@
 .section-header {
   font-variant: small-caps;
 }
+
+a.card-title:hover {
+  text-decoration: none;
+  color: $white;
+}
