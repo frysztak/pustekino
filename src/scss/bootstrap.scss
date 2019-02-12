@@ -2,19 +2,6 @@
 @import "~bootstrap/scss/bootstrap.scss";
 @import "./_bootswatch.scss";
 
-$font-family-sans-serif: "Quicksand", -apple-system, BlinkMacSystemFont,
-  "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !default;
-
-$h5-font-size: 1.25rem !default;
-
-.movie-preview {
-  font-family: "Quicksand", sans-serif;
-}
-
-.movie-preview-title {
-  font-size: 56px;
-}
-
 .movie-preview-genres {
   font-size: 18px;
 }
@@ -36,4 +23,8 @@ $h5-font-size: 1.25rem !default;
 // https://stackoverflow.com/a/47465819
 .tall-navbar {
   height: calc(9rem - #{$nav-link-height} - #{$nav-link-padding-y * 2});
+}
+
+.section-header {
+  font-variant: small-caps;
 }
