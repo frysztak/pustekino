@@ -7,6 +7,7 @@ import { Route, Switch } from "react-router"; // react-router v4
 import { ConnectedRouter } from "connected-react-router";
 import { history, store } from "./redux/store";
 import * as serviceWorker from "./serviceWorker";
+import MoviePage from "./pages/MoviePage";
 
 ReactDOM.render(
   <Provider store={store}>
@@ -14,6 +15,7 @@ ReactDOM.render(
       <>
         <Switch>
           <Route exact path="/" component={MainPage} />
+          <Route path="/movie" component={MoviePage} />
           <Route render={() => <div>Miss</div>} />
         </Switch>
       </>

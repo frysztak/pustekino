@@ -4,7 +4,8 @@ import { Reducer } from "redux";
 const initialState: MoviesState = {
   loading: false,
   errorMessage: undefined,
-  movies: []
+  movies: [],
+  currentMovie: undefined
 };
 
 const reducer: Reducer<MoviesState> = (state = initialState, action) => {
@@ -17,6 +18,9 @@ const reducer: Reducer<MoviesState> = (state = initialState, action) => {
     }
     case MoviesActionTypes.FETCH_ERROR: {
       return { ...state, loading: false, errorMessage: action.payload };
+    }
+    case MoviesActionTypes.SET_CURRENT: {
+      return { ...state, currentMovie: action.payload };
     }
     default:
       return state;

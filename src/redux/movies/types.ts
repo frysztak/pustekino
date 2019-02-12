@@ -17,10 +17,13 @@ export interface MoviesState {
   loading: boolean;
   errorMessage: string | undefined;
   movies: Movie[];
+  currentMovie: Movie | undefined;
 }
 
 export enum MoviesActionTypes {
   FETCH_REQUEST = "@@movies/FETCH_REQUEST",
   FETCH_SUCCESS = "@@movies/FETCH_SUCCESS",
-  FETCH_ERROR = "@@movies/FETCH_ERROR"
+  FETCH_ERROR = "@@movies/FETCH_ERROR",
+
+  SET_CURRENT = "@@movies/SET_CURRENT"
 }
