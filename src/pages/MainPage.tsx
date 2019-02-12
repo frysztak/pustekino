@@ -49,6 +49,9 @@ class MainPage extends Component<Props> {
     const posters = (
       <Container>
         <Row>
+          <h4 className="section-header">Pozostałe filmy</h4>
+        </Row>
+        <Row>
           {this.props.movies.map((movie, i) => (
             <Col>
               <MoviePoster movie={movie} />
@@ -61,8 +64,8 @@ class MainPage extends Component<Props> {
     return (
       <div>
         <NavBar />
-
         {this.props.loading ? <ProgressBar /> : { ...carousel }}
+        <hr />
         {this.props.loading ? <ProgressBar /> : { ...posters }}
       </div>
     );
