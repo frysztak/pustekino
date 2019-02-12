@@ -53,7 +53,7 @@ class MainPage extends Component<Props> {
         </Row>
         <Row>
           {this.props.movies.map((movie, i) => (
-            <Col>
+            <Col key={i}>
               <MoviePoster movie={movie} />
             </Col>
           ))}
