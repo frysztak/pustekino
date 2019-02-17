@@ -5,12 +5,17 @@ export interface Movie {
   title_eng: string;
   currently_shown: boolean;
   poster_url: string;
+  poster_large_url: string;
   description_pl: string;
   genres: string[];
   runtime: number;
+  hero_url: string;
   hero_url_desktop: string;
   hero_url_mobile: string;
   preview_image_urls: string[];
+  directors: string[];
+  actors: string[];
+  country: string;
 }
 
 export interface MoviesState {
