@@ -19,8 +19,12 @@ const reducer: Reducer<MoviesState> = (state = initialState, action) => {
     case MoviesActionTypes.FETCH_ERROR: {
       return { ...state, loading: false, errorMessage: action.payload };
     }
-    case MoviesActionTypes.SET_CURRENT: {
-      return { ...state, currentMovie: action.payload };
+    case MoviesActionTypes.MOVIE_SELECTED: {
+      const movieId = action.payload;
+      return {
+        ...state,
+        currentMovie: state.movies.find(m => m.multikinoId === movieId)
+      };
     }
     default:
       return state;

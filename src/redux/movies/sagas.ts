@@ -23,6 +23,5 @@ function* watchFetchRequest() {
 }
 
 export default function* moviesSaga() {
-    yield all([fork(watchFetchRequest)])
-  }
-  
+  yield all([fork(watchFetchRequest)]);
+}

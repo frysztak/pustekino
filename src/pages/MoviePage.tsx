@@ -5,7 +5,7 @@ import { ConnectedReduxProps, AppState } from "../redux/store";
 import { connect } from "react-redux";
 
 interface StateProps {
-  movieId: number;
+  movie: Movie | undefined;
 }
 
 interface DispatchProps {}
@@ -14,12 +14,15 @@ type Props = StateProps & DispatchProps & ConnectedReduxProps;
 
 class MoviePage extends React.Component<Props> {
   render() {
-    return <div>{this.props.movieId}</div>;
+    if (!this.props.movie) {
+      return <div>Movie is not selected</div>;
+    }
+    return <div>{this.props.movie.title_pl}</div>;
   }
 }
 
 const mapStateToProps = (state: AppState): StateProps => ({
-  movieId: parseInt(state.router.location.hash.replace("#", ""))
+  movie: state.movies.currentMovie
 });
 
 const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({});

@@ -7,7 +7,7 @@ import { MoviePreview } from "../components/MoviePreview";
 import { NavBar } from "../components/NavBar";
 import { ConnectedReduxProps, AppState } from "../redux/store";
 import { Movie } from "../redux/movies/types";
-import { fetchRequest } from "../redux/movies/actions";
+import { fetchRequest, selectMovie } from "../redux/movies/actions";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
@@ -24,6 +24,7 @@ interface StateProps {
 
 interface DispatchProps {
   load: typeof fetchRequest;
+  selectMovie: typeof selectMovie;
 }
 
 type Props = StateProps & DispatchProps & ConnectedReduxProps;
@@ -56,7 +57,10 @@ class MainPage extends Component<Props> {
         <Row>
           {this.props.movies.map((movie, i) => (
             <Col key={i}>
-              <MoviePoster movie={movie} />
+              <MoviePoster
+                movie={movie}
+                clickHandler={this.props.selectMovie.bind(this)}
+              />
             </Col>
           ))}
         </Row>
@@ -81,7 +85,8 @@ const mapStateToProps = ({ movies }: AppState): StateProps => ({
 });
 
 const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
-  load: () => dispatch(fetchRequest())
+  load: () => dispatch(fetchRequest()),
+  selectMovie: (movieid: number) => dispatch(selectMovie(movieid))
 });
 
 export default connect(
