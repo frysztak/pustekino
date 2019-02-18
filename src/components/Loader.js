@@ -9,7 +9,9 @@ import "./../scss/loader.scss";
 export function withLoader(WrappedComponent) {
   class WithLoader extends React.Component {
     componentDidMount() {
-      this.props.loadMovies();
+      if (this.props.movies.length === 0) {
+        this.props.loadMovies();
+      }
     }
 
     render() {
@@ -21,6 +23,7 @@ export function withLoader(WrappedComponent) {
   }
 
   const mapStateToProps = (state, ownProps) => ({
+    movies: state.movies.movies,
     loading: state.movies.loading
   });
 
