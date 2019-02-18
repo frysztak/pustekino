@@ -70,9 +70,9 @@ class MainPage extends Component<Props> {
     return (
       <div>
         <NavBar />
-        {this.props.loading ? <ProgressBar /> : { ...carousel }}
+        {{ ...carousel }}
         <hr />
-        {this.props.loading ? <ProgressBar /> : { ...posters }}
+        {{ ...posters }}
       </div>
     );
   }

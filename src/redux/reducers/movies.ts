@@ -2,7 +2,7 @@ import { MoviesState, MoviesActionTypes } from "../movies/types";
 import { Reducer } from "redux";
 
 const initialState: MoviesState = {
-  loading: false,
+  loading: true,
   errorMessage: undefined,
   movies: [],
   currentMovie: undefined

@@ -8,13 +8,14 @@ import { ConnectedRouter } from "connected-react-router";
 import { history, store } from "./redux/store";
 import * as serviceWorker from "./serviceWorker";
 import MoviePage from "./pages/MoviePage";
+import { withLoader } from "./components/Loader";
 
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <>
         <Switch>
-          <Route exact path="/" component={MainPage} />
+          <Route exact path="/" component={withLoader(MainPage)} />
           <Route path="/movie" component={MoviePage} />
           <Route render={() => <div>Miss</div>} />
         </Switch>
