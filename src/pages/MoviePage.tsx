@@ -9,6 +9,7 @@ import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
 import { NavBar } from "../components/NavBar";
 import { selectMovie } from "../redux/movies/actions";
+import Carousel from "react-bootstrap/Carousel";
 
 interface StateProps {
   movie: Movie | undefined;
@@ -32,17 +33,77 @@ class MoviePage extends React.Component<Props> {
       return <div>Movie is not selected</div>;
     }
 
+    const carousel = (
+      <Carousel>
+        {this.props.movie.preview_image_urls.map((url, i) => (
+          <Carousel.Item key={i} className="movie-preview-constant-overlay">
+            <Image src={url} fluid />
+          </Carousel.Item>
+        ))}
+      </Carousel>
+    );
+
+    const genres = this.props.movie.genres.reduce(
+      (acc, cur) => `${acc}, ${cur}`
+    );
+    const directors = this.props.movie.directors.reduce(
+      (acc, cur) => `${acc}, ${cur}`
+    );
+    const actors = this.props.movie.actors.reduce(
+      (acc, cur) => `${acc}, ${cur}`
+    );
+
     return (
       <div>
         <NavBar />
-        <Container>
+        <Container fluid>
           <Row>
-            <Col xs={6}>
-              <Image src={this.props.movie.hero_url} fluid />
+            <Col>
+              <h2>{this.props.movie.title_pl}</h2>
             </Col>
-            <Col xs={6}>
-              <h1>{this.props.movie.title_pl}</h1>
+          </Row>
+
+          <Row>
+            <Col xs={3}>
+              <Image width="350rem" src={this.props.movie.poster_large_url} />
             </Col>
+
+            <Col xs={3}>
+              <h5>
+                <span>
+                  <span className="text-muted">Gatunek: </span>
+                  {genres}
+                </span>
+              </h5>
+
+              <h5>
+                <span>
+                  <span className="text-muted">Reżyser: </span>
+                  {directors}
+                </span>
+              </h5>
+
+              <h5>
+                <span>
+                  <span className="text-muted">Kraj: </span>
+                  {this.props.movie.country}
+                </span>
+              </h5>
+
+              <h5>
+                <span>
+                  <span className="text-muted">Aktorzy: </span>
+                  {actors}
+                </span>
+              </h5>
+
+              <hr />
+              <h5>{this.props.movie.description_pl}</h5>
+            </Col>
+          </Row>
+
+          <Row>
+            <Col lg={true}>{{ ...carousel }}</Col>
           </Row>
         </Container>
       </div>

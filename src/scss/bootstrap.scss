@@ -20,6 +20,16 @@
   content: "";
 }
 
+.movie-preview-constant-overlay::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  content: "";
+}
+
 // https://stackoverflow.com/a/47465819
 .tall-navbar {
   height: calc(9rem - #{$nav-link-height} - #{$nav-link-padding-y * 2});
