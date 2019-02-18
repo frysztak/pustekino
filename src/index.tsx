@@ -16,7 +16,7 @@ ReactDOM.render(
       <>
         <Switch>
           <Route exact path="/" component={withLoader(MainPage)} />
-          <Route path="/movie" component={MoviePage} />
+          <Route path="/movie" component={withLoader(MoviePage)} />
           <Route render={() => <div>Miss</div>} />
         </Switch>
       </>

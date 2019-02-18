@@ -8,17 +8,26 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
 import { NavBar } from "../components/NavBar";
+import { selectMovie } from "../redux/movies/actions";
 
 interface StateProps {
   movie: Movie | undefined;
+  movieHash: string;
 }
 
-interface DispatchProps {}
+interface DispatchProps {
+  setCurrentMovie: (movieId: number) => void;
+}
 
 type Props = StateProps & DispatchProps & ConnectedReduxProps;
 
 class MoviePage extends React.Component<Props> {
   render() {
+    if (!this.props.movie && this.props.movieHash) {
+      const id = parseInt(this.props.movieHash.slice(1));
+      this.props.setCurrentMovie(id);
+    }
+
     if (!this.props.movie) {
       return <div>Movie is not selected</div>;
     }
@@ -42,10 +51,13 @@ class MoviePage extends React.Component<Props> {
 }
 
 const mapStateToProps = (state: AppState): StateProps => ({
-  movie: state.movies.currentMovie
+  movie: state.movies.currentMovie,
+  movieHash: state.router.location.hash
 });
 
-const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({});
+const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
+  setCurrentMovie: (movieId: number) => dispatch(selectMovie(movieId))
+});
 
 export default connect(
   mapStateToProps,
