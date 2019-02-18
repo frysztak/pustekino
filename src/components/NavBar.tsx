@@ -4,7 +4,11 @@ import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
 
 export const NavBar: React.FC = () => (
-  <Navbar className="mx-auto tall-navbar" variant="dark" expanded={false}>
+  <Navbar
+    className="mx-auto tall-navbar navbar-lighter"
+    variant="dark"
+    expanded={false}
+  >
     <Navbar.Brand href="#home">
       <img src="/logo.svg" height="40" alt="" />
     </Navbar.Brand>

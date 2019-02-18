@@ -35,6 +35,10 @@
   height: calc(9rem - #{$nav-link-height} - #{$nav-link-padding-y * 2});
 }
 
+.navbar-lighter {
+  background-color: lighten($color: $body-bg, $amount: 5%);
+}
+
 .section-header {
   font-variant: small-caps;
 }
