@@ -43,15 +43,8 @@ class MoviePage extends React.Component<Props> {
       </Carousel>
     );
 
-    const genres = this.props.movie.genres.reduce(
-      (acc, cur) => `${acc}, ${cur}`
-    );
-    const directors = this.props.movie.directors.reduce(
-      (acc, cur) => `${acc}, ${cur}`
-    );
-    const actors = this.props.movie.actors.reduce(
-      (acc, cur) => `${acc}, ${cur}`
-    );
+    const joinArray = (arr: string[]) =>
+      arr.reduce((acc, cur) => `${acc}, ${cur}`);
 
     return (
       <div>
@@ -69,41 +62,51 @@ class MoviePage extends React.Component<Props> {
             </Col>
 
             <Col lg={4} md={8}>
-              <h5>
-                <span>
-                  <span className="text-muted">Gatunek: </span>
-                  {genres}
-                </span>
-              </h5>
+              {this.props.movie.genres.length ? (
+                <h5>
+                  <span>
+                    <span className="text-muted">Gatunek: </span>
+                    {joinArray(this.props.movie.genres)}
+                  </span>
+                </h5>
+              ) : null}
 
-              <h5>
-                <span>
-                  <span className="text-muted">Reżyser: </span>
-                  {directors}
-                </span>
-              </h5>
+              {this.props.movie.directors.length ? (
+                <h5>
+                  <span>
+                    <span className="text-muted">Reżyser: </span>
+                    {joinArray(this.props.movie.directors)}
+                  </span>
+                </h5>
+              ) : null}
 
-              <h5>
-                <span>
-                  <span className="text-muted">Kraj: </span>
-                  {this.props.movie.country}
-                </span>
-              </h5>
+              {this.props.movie.country ? (
+                <h5>
+                  <span>
+                    <span className="text-muted">Kraj: </span>
+                    {this.props.movie.country}
+                  </span>
+                </h5>
+              ) : null}
 
-              <h5>
-                <span>
-                  <span className="text-muted">Aktorzy: </span>
-                  {actors}
-                </span>
-              </h5>
+              {this.props.movie.actors.length ? (
+                <h5>
+                  <span>
+                    <span className="text-muted">Aktorzy: </span>
+                    {joinArray(this.props.movie.actors)}
+                  </span>
+                </h5>
+              ) : null}
 
-              <h5>
-                <span>
-                  <span className="text-muted">Czas trwania: </span>
-                  <span>{this.props.movie.runtime}</span>
-                  <span> minut</span>
-                </span>
-              </h5>
+              {this.props.movie.runtime ? (
+                <h5>
+                  <span>
+                    <span className="text-muted">Czas trwania: </span>
+                    <span>{this.props.movie.runtime}</span>
+                    <span> minut</span>
+                  </span>
+                </h5>
+              ) : null}
 
               <hr />
               <h5>{this.props.movie.description_pl}</h5>
