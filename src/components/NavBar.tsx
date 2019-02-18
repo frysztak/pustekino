@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import { Link } from "react-router-dom";
 
 export const NavBar: React.FC = () => (
   <Navbar
@@ -9,9 +10,12 @@ export const NavBar: React.FC = () => (
     variant="dark"
     expanded={false}
   >
-    <Navbar.Brand href="#home">
-      <img src="/logo.svg" height="40" alt="" />
-    </Navbar.Brand>
+    <Link to="/">
+      <Navbar.Brand>
+        <img src="/logo.svg" height="40" alt="" />
+      </Navbar.Brand>
+    </Link>
+
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse>
       <Nav className="justify-content-end d-none">
