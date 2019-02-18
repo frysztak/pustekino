@@ -64,11 +64,11 @@ class MoviePage extends React.Component<Props> {
           </Row>
 
           <Row>
-            <Col xs={3}>
-              <Image width="350rem" src={this.props.movie.poster_large_url} />
+            <Col lg={2} md={4}>
+              <Image fluid src={this.props.movie.poster_large_url} />
             </Col>
 
-            <Col xs={3}>
+            <Col lg={4} md={8}>
               <h5>
                 <span>
                   <span className="text-muted">Gatunek: </span>
@@ -97,12 +97,18 @@ class MoviePage extends React.Component<Props> {
                 </span>
               </h5>
 
+              <h5>
+                <span>
+                  <span className="text-muted">Czas trwania: </span>
+                  <span>{this.props.movie.runtime}</span>
+                  <span> minut</span>
+                </span>
+              </h5>
+
               <hr />
               <h5>{this.props.movie.description_pl}</h5>
             </Col>
-          </Row>
 
-          <Row>
             <Col lg={true}>{{ ...carousel }}</Col>
           </Row>
         </Container>
