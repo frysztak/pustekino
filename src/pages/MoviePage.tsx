@@ -10,23 +10,43 @@ import Image from "react-bootstrap/Image";
 import { NavBar } from "../components/NavBar";
 import { selectMovie } from "../redux/movies/actions";
 import Carousel from "react-bootstrap/Carousel";
+import { fetchSeancesRequest } from "../redux/seances/actions";
+import { Seances } from "../redux/seances/types";
+import { SeanceGroup } from "../components/SeanceGroup";
 
 interface StateProps {
   movie: Movie | undefined;
   movieHash: string;
+  seances: Seances;
+  seancesLoading: boolean;
 }
 
 interface DispatchProps {
   setCurrentMovie: (movieId: number) => void;
+  loadSeances: (movieId: number, cinemaId: number) => void;
 }
 
 type Props = StateProps & DispatchProps & ConnectedReduxProps;
 
+const CinemaId = 18;
+
 class MoviePage extends React.Component<Props> {
   render() {
+    // TODO: dont do those things in render!
     if (!this.props.movie && this.props.movieHash) {
       const id = parseInt(this.props.movieHash.slice(1));
       this.props.setCurrentMovie(id);
+
+      // TODO: uh
+      if (
+        (this.props.seances.movieId !== id ||
+          this.props.seances.cinemaId !== CinemaId) &&
+        (this.props.seances.today.length === 0 ||
+          this.props.seances.tomorrow.length === 0 ||
+          this.props.seances.later.length === 0)
+      ) {
+        this.props.loadSeances(id, CinemaId);
+      }
     }
 
     if (!this.props.movie) {
@@ -55,7 +75,6 @@ class MoviePage extends React.Component<Props> {
               <h2>{this.props.movie.title_pl}</h2>
             </Col>
           </Row>
-
           <Row>
             <Col lg={2} md={4}>
               <Image fluid src={this.props.movie.poster_large_url} />
@@ -114,6 +133,17 @@ class MoviePage extends React.Component<Props> {
 
             <Col lg={true}>{{ ...carousel }}</Col>
           </Row>
+          {this.props.seancesLoading ? (
+            <div className="loader" />
+          ) : (
+            <div>
+              <SeanceGroup seances={this.props.seances.today} name="Dziś" />
+              <hr />
+              <SeanceGroup seances={this.props.seances.tomorrow} name="Jutro" />
+            </div>
+          )}
+          }
+          <Row />
         </Container>
       </div>
     );
@@ -122,11 +152,15 @@ class MoviePage extends React.Component<Props> {
 
 const mapStateToProps = (state: AppState): StateProps => ({
   movie: state.movies.currentMovie,
+  seances: state.seances.seances,
+  seancesLoading: state.seances.loading,
   movieHash: state.router.location.hash
 });
 
 const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
-  setCurrentMovie: (movieId: number) => dispatch(selectMovie(movieId))
+  setCurrentMovie: (movieId: number) => dispatch(selectMovie(movieId)),
+  loadSeances: (movieId: number, cinemaId: number) =>
+    dispatch(fetchSeancesRequest({ movieId: movieId, cinemaId: cinemaId }))
 });
 
 export default connect(

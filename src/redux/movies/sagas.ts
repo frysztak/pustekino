@@ -3,14 +3,11 @@ import { Movie, MoviesActionTypes } from "./types";
 import { fetchError, fetchSuccess } from "./actions";
 import { callApi } from "../../utils/api";
 
+const baseUrl = process.env.REACT_APP_API_BASE_URL as string;
+
 function* handleFetch() {
   try {
-    const resp = yield call(
-      callApi,
-      "get",
-      process.env.REACT_APP_API_BASE_URL as string,
-      "/movies"
-    );
+    const resp = yield call(callApi, "get", baseUrl, "/movies");
     const movies = resp as Movie[];
     yield put(fetchSuccess(movies));
   } catch (err) {
