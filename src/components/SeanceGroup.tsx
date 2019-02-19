@@ -31,18 +31,25 @@ export class SeanceGroup extends React.Component<Props, State> {
       ? this.props.seances
       : this.props.seances.slice(0, N);
 
+    const hasSeances = seances.length !== 0;
+
     return (
       <div>
         <Row>
-          <h4>{this.props.name}</h4>
+          <h4 className="ml-2">{this.props.name}</h4>
         </Row>
         <Row>
-          {seances.map((seance, i) => (
-            <Col className="col-auto mb-3">
-              <SeanceButton seance={seance} key={i} />
-            </Col>
-          ))}
-          {addShowMoreButton ? (
+          {hasSeances ? (
+            seances.map((seance, i) => (
+              <Col className="col-auto mb-3">
+                <SeanceButton seance={seance} key={i} />
+              </Col>
+            ))
+          ) : (
+            <h5 className="text-muted ml-3">Brak pokazów tego dnia</h5>
+          )}
+
+          {addShowMoreButton && hasSeances ? (
             <Col className="col-auto mb-3">
               <Button
                 size="lg"
