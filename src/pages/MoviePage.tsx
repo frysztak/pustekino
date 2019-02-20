@@ -28,27 +28,8 @@ interface DispatchProps {
 
 type Props = StateProps & DispatchProps & ConnectedReduxProps;
 
-const CinemaId = 18;
-
 class MoviePage extends React.Component<Props> {
   render() {
-    // TODO: dont do those things in render!
-    if (!this.props.movie && this.props.movieHash) {
-      const id = parseInt(this.props.movieHash.slice(1));
-      this.props.setCurrentMovie(id);
-
-      // TODO: uh
-      if (
-        (this.props.seances.movieId !== id ||
-          this.props.seances.cinemaId !== CinemaId) &&
-        (this.props.seances.today.length === 0 ||
-          this.props.seances.tomorrow.length === 0 ||
-          this.props.seances.later.length === 0)
-      ) {
-        this.props.loadSeances(id, CinemaId);
-      }
-    }
-
     if (!this.props.movie) {
       return <div>Movie is not selected</div>;
     }

@@ -13,6 +13,8 @@ export const fetchSeancesSuccess = (data: Seances) =>
 export const fetchSeancesError = (message: string) =>
   action(SeancesActionTypes.FETCH_ERROR, message);
 
+export const clearSeances = () => action(SeancesActionTypes.CLEAR);
+
 export interface SingleSeanceError {
   seanceId: number;
   errorMessage: string;

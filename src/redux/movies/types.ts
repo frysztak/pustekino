@@ -30,5 +30,6 @@ export enum MoviesActionTypes {
   FETCH_SUCCESS = "@@movies/FETCH_SUCCESS",
   FETCH_ERROR = "@@movies/FETCH_ERROR",
 
-  MOVIE_SELECTED = "@@movies/MOVIE_SELECTED"
+  MOVIE_SELECTED = "@@movies/MOVIE_SELECTED",
+  SET_CURRENT_MOVIE = "@@movies/SET_CURRENT_MOVIE"
 }

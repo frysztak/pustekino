@@ -9,3 +9,5 @@ export const fetchError = (message: string) =>
 
 export const selectMovie = (movieId: number) =>
   action(MoviesActionTypes.MOVIE_SELECTED, movieId);
+export const setCurrentMovie = (movie: Movie) =>
+  action(MoviesActionTypes.SET_CURRENT_MOVIE, movie);

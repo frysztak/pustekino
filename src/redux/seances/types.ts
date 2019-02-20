@@ -29,6 +29,7 @@ export enum SeancesActionTypes {
   FETCH_REQUEST = "@@seances/FETCH_REQUEST",
   FETCH_SUCCESS = "@@seances/FETCH_SUCCESS",
   FETCH_ERROR = "@@seances/FETCH_ERROR",
+  CLEAR = "@@seances/CLEAR",
 
   FETCH_BULK_UPDATE_REQUEST = "@@seances/FETCH_BULK_UPDATE_REQUEST",
   FETCH_SINGLE_SUCCESS = "@@seances/FETCH_SINGLE_SUCCESS",
