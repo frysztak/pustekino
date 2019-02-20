@@ -32,6 +32,7 @@ function* handleSingleFetchUpdate(seanceId: number) {
   try {
     const resp = yield call(callApi, "get", baseUrl, `/seance/${seanceId}`);
     const data = resp as Seance;
+    data.loading = false;
     yield put(fetchSingleSeanceSuccess(data));
   } catch (err) {
     yield put(fetchSingleSeanceError(err));
