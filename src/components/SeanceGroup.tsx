@@ -52,7 +52,7 @@ export class SeanceGroup extends React.Component<Props, State> {
           {addShowMoreButton && hasSeances ? (
             <Col className="col-auto mb-3">
               <Button
-                size="lg"
+                className="btn-xl"
                 onClick={() => this.setState({ showAll: true })}
               >
                 więcej...

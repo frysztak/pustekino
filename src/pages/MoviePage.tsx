@@ -140,6 +140,8 @@ class MoviePage extends React.Component<Props> {
               <SeanceGroup seances={this.props.seances.today} name="Dziś" />
               <hr />
               <SeanceGroup seances={this.props.seances.tomorrow} name="Jutro" />
+              <hr />
+              <SeanceGroup seances={this.props.seances.later} name="Później" />
             </div>
           )}
           <Row />

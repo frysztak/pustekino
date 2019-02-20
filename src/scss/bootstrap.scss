@@ -1,6 +1,7 @@
 @import "./_variables.scss";
 @import "~bootstrap/scss/bootstrap.scss";
 @import "./_bootswatch.scss";
+@import "./seance.scss";
 
 .movie-preview-genres {
   font-size: 18px;
@@ -46,4 +47,14 @@
 a.card-title:hover {
   text-decoration: none;
   color: $white;
+}
+
+.btn-xl {
+  @include button-size(
+    $btn-padding-y-xl,
+    $btn-padding-x-xl,
+    $btn-font-size-xl,
+    $btn-line-height-xl,
+    $btn-border-radius-xl
+  );
 }

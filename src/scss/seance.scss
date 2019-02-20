@@ -1,0 +1,44 @@
+$seat-indicator-low-width: 22px;
+$seat-indicator-medium-width: 33px;
+$seat-indicator-high-width: 44px;
+
+@mixin seat-indicator($width, $color) {
+  display: inline-block;
+  content: " ";
+  position: absolute;
+  width: $width;
+  height: 1px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  bottom: 25%;
+  background-color: $color;
+}
+
+.btn-seat-indicator-low::after {
+  @include seat-indicator($seat-indicator-low-width, $green);
+}
+
+.btn-seat-indicator-medium::after {
+  @include seat-indicator($seat-indicator-medium-width, $blue);
+}
+
+.btn-seat-indicator-high::after {
+  @include seat-indicator($seat-indicator-high-width, $red);
+}
+
+@keyframes loader {
+  0% {
+    width: 0px;
+  }
+
+  100% {
+    width: $seat-indicator-high-width;
+  }
+}
+
+.btn-seat-indicator-loading::after {
+  @include seat-indicator($seat-indicator-high-width, $white);
+  animation: loader 2s ease infinite;
+}
