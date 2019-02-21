@@ -11,5 +11,9 @@ export async function callApi(
     },
     body: JSON.stringify(data)
   });
-  return await res.json();
+  if (res.ok) {
+    return await res.json();
+  }
+
+  throw new Error(res.statusText);
 }

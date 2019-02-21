@@ -35,7 +35,9 @@ function* handleSingleFetchUpdate(seanceId: number) {
     data.loading = false;
     yield put(fetchSingleSeanceSuccess(data));
   } catch (err) {
-    yield put(fetchSingleSeanceError(err));
+    yield put(
+      fetchSingleSeanceError({ seanceId: seanceId, errorMessage: err.message })
+    );
   }
 }
 

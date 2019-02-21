@@ -19,7 +19,7 @@ export class SeanceButton extends React.Component<Props> {
     if (seance.loading || !seance.seatAvailability) {
       buttonClass = "btn-seat-indicator-loading";
     } else if (seance.errorMessage) {
-      buttonClass = ""; // TODO
+      buttonClass = "";
     } else {
       if (seance.seatAvailability >= 0.75) {
         buttonClass = "btn-seat-indicator-low";

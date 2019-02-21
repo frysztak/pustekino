@@ -83,33 +83,12 @@ const reducer: Reducer<SeancesState> = (state = initialState, action) => {
     }
 
     case SeancesActionTypes.FETCH_SINGLE_ERROR: {
-      const { seance } = action.payload;
+      const { seanceId, errorMessage } = action.payload;
 
       const updateSeances = (list: Seance[]) =>
         list.map(s =>
-          s.multikinoId === seance.multikinoId
-            ? { ...seance, loading: false }
-            : s
-        );
-
-      return {
-        ...state,
-        seances: {
-          ...state.seances,
-          today: updateSeances(state.seances.today),
-          tomorrow: updateSeances(state.seances.tomorrow),
-          later: state.seances.later.map(l => updateSeances(l))
-        }
-      };
-    }
-
-    case SeancesActionTypes.FETCH_SINGLE_ERROR: {
-      const { seanceError } = action.payload;
-
-      const updateSeances = (list: Seance[]) =>
-        list.map(s =>
-          s.multikinoId === seanceError.seanceId
-            ? { ...s, loading: false, errorMessage: seanceError.errorMessage }
+          s.multikinoId === seanceId
+            ? { ...s, loading: false, errorMessage: errorMessage }
             : s
         );
 
