@@ -45,9 +45,10 @@ const reducer: Reducer<SeancesState> = (state = initialState, action) => {
     }
 
     case SeancesActionTypes.FETCH_BULK_UPDATE_REQUEST: {
-      const { seances } = action.payload;
       const updateSeances = (list: Seance[]) =>
         list.map(s => ({ ...s, loading: true }));
+      const updateSeancesNested = (list: Seance[][]) =>
+        list.map(l => updateSeances(l));
 
       return {
         ...state,
@@ -55,7 +56,7 @@ const reducer: Reducer<SeancesState> = (state = initialState, action) => {
           ...state.seances,
           today: updateSeances(state.seances.today),
           tomorrow: updateSeances(state.seances.tomorrow),
-          later: updateSeances(state.seances.later)
+          later: state.seances.later.map(l => updateSeances(l))
         }
       };
     }
@@ -76,7 +77,7 @@ const reducer: Reducer<SeancesState> = (state = initialState, action) => {
           ...state.seances,
           today: updateSeances(state.seances.today),
           tomorrow: updateSeances(state.seances.tomorrow),
-          later: updateSeances(state.seances.later)
+          later: state.seances.later.map(l => updateSeances(l))
         }
       };
     }
@@ -97,7 +98,7 @@ const reducer: Reducer<SeancesState> = (state = initialState, action) => {
           ...state.seances,
           today: updateSeances(state.seances.today),
           tomorrow: updateSeances(state.seances.tomorrow),
-          later: updateSeances(state.seances.later)
+          later: state.seances.later.map(l => updateSeances(l))
         }
       };
     }
@@ -118,7 +119,7 @@ const reducer: Reducer<SeancesState> = (state = initialState, action) => {
           ...state.seances,
           today: updateSeances(state.seances.today),
           tomorrow: updateSeances(state.seances.tomorrow),
-          later: updateSeances(state.seances.later)
+          later: state.seances.later.map(l => updateSeances(l))
         }
       };
     }

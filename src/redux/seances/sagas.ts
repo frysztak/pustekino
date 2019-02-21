@@ -41,8 +41,8 @@ function* handleSingleFetchUpdate(seanceId: number) {
 
 function* handleFetchBulkUpdate({ payload }: AnyAction) {
   const s = payload as Seances;
-  console.log(s);
-  const forks = [...s.today, ...s.tomorrow, ...s.later].map(seance =>
+  const flatten = (arr: any[]) => Array.prototype.concat(...arr);
+  const forks = [...s.today, ...s.tomorrow, ...flatten(s.later)].map(seance =>
     fork(handleSingleFetchUpdate, seance.multikinoId)
   );
 

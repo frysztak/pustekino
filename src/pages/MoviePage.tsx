@@ -53,15 +53,15 @@ class MoviePage extends React.Component<Props> {
         <Container fluid>
           <Row>
             <Col>
-              <h2>{this.props.movie.title_pl}</h2>
+              <h2 className="my-3">{this.props.movie.title_pl}</h2>
             </Col>
           </Row>
           <Row>
-            <Col lg={2} md={4}>
+            <Col lg={2} md={4} className="mb-3">
               <Image fluid src={this.props.movie.poster_large_url} />
             </Col>
 
-            <Col lg={4} md={8}>
+            <Col lg={4} md={8} className="mb-3">
               {this.props.movie.genres.length ? (
                 <h5>
                   <span>
@@ -118,11 +118,14 @@ class MoviePage extends React.Component<Props> {
             <div className="loader" />
           ) : (
             <div>
-              <SeanceGroup seances={this.props.seances.today} name="Dziś" />
+              <SeanceGroup seances={this.props.seances.today} type="today" />
               <hr />
-              <SeanceGroup seances={this.props.seances.tomorrow} name="Jutro" />
+              <SeanceGroup
+                seances={this.props.seances.tomorrow}
+                type="tomorrow"
+              />
               <hr />
-              <SeanceGroup seances={this.props.seances.later} name="Później" />
+              <SeanceGroup seances={this.props.seances.later} type="later" />
             </div>
           )}
           <Row />

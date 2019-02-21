@@ -5,7 +5,7 @@ export interface Seances {
   cinemaId: number;
   today: Seance[];
   tomorrow: Seance[];
-  later: Seance[];
+  later: Seance[][];
 }
 
 export interface Seance {
