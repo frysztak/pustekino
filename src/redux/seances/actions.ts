@@ -1,5 +1,5 @@
 import { action } from "typesafe-actions";
-import { SeancesActionTypes, Seances, Seance } from "./types";
+import { SeancesActionTypes, Seances, Seance, Popularity } from "./types";
 
 export interface FetchSeancesParams {
   movieId: number;
@@ -26,3 +26,14 @@ export const fetchSingleSeanceSuccess = (data: Seance) =>
   action(SeancesActionTypes.FETCH_SINGLE_SUCCESS, data);
 export const fetchSingleSeanceError = (data: SingleSeanceError) =>
   action(SeancesActionTypes.FETCH_SINGLE_ERROR, data);
+
+export interface PopularityError extends FetchSeancesParams {
+  errorMessage: string;
+}
+
+export const fetchPopularityRequest = (params: FetchSeancesParams) =>
+  action(SeancesActionTypes.FETCH_POPULARITY_REQUEST, params);
+export const fetchPopularitySuccess = (data: Popularity) =>
+  action(SeancesActionTypes.FETCH_POPULARITY_SUCCESS, data);
+export const fetchPopularityError = (data: PopularityError) =>
+  action(SeancesActionTypes.FETCH_POPULARITY_ERROR, data);

@@ -11,14 +11,17 @@ import { NavBar } from "../components/NavBar";
 import { selectMovie } from "../redux/movies/actions";
 import Carousel from "react-bootstrap/Carousel";
 import { fetchSeancesRequest } from "../redux/seances/actions";
-import { Seances } from "../redux/seances/types";
+import { Seances, PopularityPoint } from "../redux/seances/types";
 import { SeanceGroup } from "../components/SeanceGroup";
+import { PopularityChart } from "../components/PopularityChart";
 
 interface StateProps {
   movie: Movie | undefined;
   movieHash: string;
   seances: Seances;
   seancesLoading: boolean;
+  popularity: PopularityPoint[];
+  popularityLoading: boolean;
 }
 
 interface DispatchProps {
@@ -114,21 +117,39 @@ class MoviePage extends React.Component<Props> {
 
             <Col lg={true}>{{ ...carousel }}</Col>
           </Row>
-          {this.props.seancesLoading ? (
-            <div className="loader" />
-          ) : (
-            <div>
-              <SeanceGroup seances={this.props.seances.today} type="today" />
-              <hr />
-              <SeanceGroup
-                seances={this.props.seances.tomorrow}
-                type="tomorrow"
-              />
-              <hr />
-              <SeanceGroup seances={this.props.seances.later} type="later" />
-            </div>
-          )}
-          <Row />
+
+          <Row>
+            <Col>
+              {this.props.seancesLoading ? (
+                <div className="loader" />
+              ) : (
+                <div>
+                  <SeanceGroup
+                    seances={this.props.seances.today}
+                    type="today"
+                  />
+                  <hr />
+                  <SeanceGroup
+                    seances={this.props.seances.tomorrow}
+                    type="tomorrow"
+                  />
+                  <hr />
+                  <SeanceGroup
+                    seances={this.props.seances.later}
+                    type="later"
+                  />
+                </div>
+              )}
+            </Col>
+
+            <Col>
+              {this.props.popularityLoading ? (
+                <div className="loader" />
+              ) : (
+                <PopularityChart data={this.props.popularity} />
+              )}
+            </Col>
+          </Row>
         </Container>
       </div>
     );
@@ -139,7 +160,9 @@ const mapStateToProps = (state: AppState): StateProps => ({
   movie: state.movies.currentMovie,
   seances: state.seances.seances,
   seancesLoading: state.seances.loading,
-  movieHash: state.router.location.hash
+  movieHash: state.router.location.hash,
+  popularity: state.seances.popularity.points,
+  popularityLoading: state.seances.popularity.loading
 });
 
 const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({

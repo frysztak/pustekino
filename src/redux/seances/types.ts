@@ -8,6 +8,11 @@ export interface Seances {
   later: Seance[][];
 }
 
+interface LoadingState {
+  loading: boolean;
+  errorMessage: string | undefined;
+}
+
 export interface Seance {
   id: number;
   loading: boolean;
@@ -19,10 +24,24 @@ export interface Seance {
   seatAvailability: number;
 }
 
+export type PopularityState = Popularity & LoadingState;
+
 export interface SeancesState {
   loading: boolean;
   errorMessage: string | undefined;
   seances: Seances;
+  popularity: PopularityState;
+}
+
+export interface Popularity {
+  movieId: number;
+  cinemaId: number;
+  points: PopularityPoint[];
+}
+
+export interface PopularityPoint {
+  date: Date;
+  seatAvailability: number;
 }
 
 export enum SeancesActionTypes {
@@ -33,5 +52,9 @@ export enum SeancesActionTypes {
 
   FETCH_BULK_UPDATE_REQUEST = "@@seances/FETCH_BULK_UPDATE_REQUEST",
   FETCH_SINGLE_SUCCESS = "@@seances/FETCH_SINGLE_SUCCESS",
-  FETCH_SINGLE_ERROR = "@@seances/FETCH_SINGLE_ERROR"
+  FETCH_SINGLE_ERROR = "@@seances/FETCH_SINGLE_ERROR",
+
+  FETCH_POPULARITY_REQUEST = "@@seances/FETCH_POPULARITY_REQUEST",
+  FETCH_POPULARITY_SUCCESS = "@@seances/FETCH_POPULARITY_SUCCESS",
+  FETCH_POPULARITY_ERROR = "@@seances/FETCH_POPULARITY_ERROR"
 }

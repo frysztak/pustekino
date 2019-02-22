@@ -1,11 +1,14 @@
 import { all, call, fork, put, takeEvery } from "redux-saga/effects";
-import { Seance, SeancesActionTypes, Seances } from "./types";
+import { Seance, SeancesActionTypes, Seances, Popularity } from "./types";
 import {
   fetchSeancesError,
   fetchSeancesSuccess,
   fetchSingleSeanceSuccess,
   fetchSingleSeanceError,
-  fetchSeancesUpdates
+  fetchSeancesUpdates,
+  fetchPopularityError,
+  fetchPopularitySuccess,
+  fetchPopularityRequest
 } from "./actions";
 import { callApi } from "../../utils/api";
 import { AnyAction } from "redux";
@@ -13,16 +16,18 @@ import { AnyAction } from "redux";
 const baseUrl = process.env.REACT_APP_API_BASE_URL as string;
 
 function* handleFetch({ payload }: AnyAction) {
+  const { movieId, cinemaId } = payload;
   try {
     const resp = yield call(
       callApi,
       "get",
       baseUrl,
-      `/seances/${payload.movieId}/at/${payload.cinemaId}`
+      `/seances/${movieId}/at/${cinemaId}`
     );
     const data = resp as Seances;
     yield put(fetchSeancesSuccess(data));
     yield put(fetchSeancesUpdates(data));
+    yield put(fetchPopularityRequest({ movieId: movieId, cinemaId: cinemaId }));
   } catch (err) {
     yield put(fetchSeancesError(err));
   }
@@ -62,6 +67,40 @@ function* watchFetchSingleSeanceRequest() {
   );
 }
 
+function* watchFetchPopularity() {
+  yield takeEvery(
+    SeancesActionTypes.FETCH_POPULARITY_REQUEST,
+    handleFetchPopularity
+  );
+}
+
+function* handleFetchPopularity({ payload }: AnyAction) {
+  const { movieId, cinemaId } = payload;
+  try {
+    const resp = yield call(
+      callApi,
+      "get",
+      baseUrl,
+      `/movie/${movieId}/popularity/at/${cinemaId}`
+    );
+    const popularity = resp as Popularity;
+    yield put(fetchPopularitySuccess(popularity));
+  } catch (err) {
+    console.log(err.message);
+    yield put(
+      fetchPopularityError({
+        movieId: movieId,
+        cinemaId: cinemaId,
+        errorMessage: err.message
+      })
+    );
+  }
+}
+
 export default function* seancesSaga() {
-  yield all([fork(watchFetchRequest), fork(watchFetchSingleSeanceRequest)]);
+  yield all([
+    fork(watchFetchRequest),
+    fork(watchFetchSingleSeanceRequest),
+    fork(watchFetchPopularity)
+  ]);
 }

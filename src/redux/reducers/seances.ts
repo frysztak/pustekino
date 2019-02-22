@@ -1,4 +1,10 @@
-import { SeancesActionTypes, SeancesState, Seance } from "../seances/types";
+import {
+  SeancesActionTypes,
+  SeancesState,
+  Seance,
+  Popularity,
+  Seances
+} from "../seances/types";
 import { Reducer } from "redux";
 
 const initialSeances = {
@@ -9,10 +15,19 @@ const initialSeances = {
   later: []
 };
 
+const initialPopularity = {
+  movieId: -1,
+  cinemaId: -1,
+  loading: true,
+  errorMessage: undefined,
+  points: []
+};
+
 const initialState: SeancesState = {
   loading: true,
   errorMessage: undefined,
-  seances: initialSeances
+  seances: initialSeances,
+  popularity: initialPopularity
 };
 
 const reducer: Reducer<SeancesState> = (state = initialState, action) => {
@@ -40,7 +55,8 @@ const reducer: Reducer<SeancesState> = (state = initialState, action) => {
       return {
         loading: false,
         errorMessage: undefined,
-        seances: initialSeances
+        seances: initialSeances,
+        popularity: initialPopularity
       };
     }
 
@@ -99,6 +115,41 @@ const reducer: Reducer<SeancesState> = (state = initialState, action) => {
           today: updateSeances(state.seances.today),
           tomorrow: updateSeances(state.seances.tomorrow),
           later: state.seances.later.map(l => updateSeances(l))
+        }
+      };
+    }
+
+    case SeancesActionTypes.FETCH_POPULARITY_REQUEST: {
+      return {
+        ...state,
+        popularity: {
+          ...state.popularity,
+          loading: true,
+          errorMessage: undefined
+        }
+      };
+    }
+
+    case SeancesActionTypes.FETCH_POPULARITY_SUCCESS: {
+      const { points } = action.payload;
+      return {
+        ...state,
+        popularity: {
+          ...state.popularity,
+          loading: false,
+          errorMessage: undefined,
+          points: points
+        }
+      };
+    }
+    case SeancesActionTypes.FETCH_POPULARITY_ERROR: {
+      const { movieId, cinemaId, errorMessage } = action.payload;
+      return {
+        ...state,
+        popularity: {
+          ...state.popularity,
+          loading: false,
+          errorMessage: errorMessage
         }
       };
     }
