@@ -9,9 +9,20 @@ interface Props {
 
 export class PopularityChart extends React.Component<Props> {
   render() {
+    const header = <h4 className="mt-2">Historia wolnych miejsc</h4>;
+
+    if (this.props.data.length === 0) {
+      return (
+        <div>
+          {header}
+          <h5 className="text-muted">Brak danych, zapraszamy później!</h5>
+        </div>
+      );
+    }
+
     return (
       <div>
-        <h4 className="mt-2">Historia wolnych miejsc</h4>
+        {header}
         <VictoryChart
           height={180}
           padding={{ top: 10, left: 40, bottom: 35, right: 35 }}
