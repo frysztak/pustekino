@@ -14,6 +14,7 @@ import { fetchSeancesRequest } from "../redux/seances/actions";
 import { Seances, PopularityPoint } from "../redux/seances/types";
 import { SeanceGroup } from "../components/SeanceGroup";
 import { PopularityChart } from "../components/PopularityChart";
+import { AllSeances } from "../components/AllSeances";
 
 interface StateProps {
   movie: Movie | undefined;
@@ -123,22 +124,7 @@ class MoviePage extends React.Component<Props> {
               {this.props.seancesLoading ? (
                 <div className="loader" />
               ) : (
-                <div>
-                  <SeanceGroup
-                    seances={this.props.seances.today}
-                    type="today"
-                  />
-                  <hr />
-                  <SeanceGroup
-                    seances={this.props.seances.tomorrow}
-                    type="tomorrow"
-                  />
-                  <hr />
-                  <SeanceGroup
-                    seances={this.props.seances.later}
-                    type="later"
-                  />
-                </div>
+                <AllSeances seances={this.props.seances} />
               )}
             </Col>
 
