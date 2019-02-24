@@ -22,7 +22,9 @@ const blueGrey50 = "#ECEFF1";
 const blueGrey700 = "#455A64";
 const grey900 = "#212121";
 
+const purple = "#864e89";
 const red = "#aa290a";
+const body_bg = "#121223";
 
 const axisColour = "#adafae";
 // *
@@ -30,7 +32,7 @@ const axisColour = "#adafae";
 // *
 const sansSerif = "'Quicksand', 'Helvetica Neue', Helvetica, sans-serif";
 const letterSpacing = "normal";
-const fontSize = 11;
+const fontSize = 10;
 const fontColour = "#dedede";
 const ticksColour = "#888";
 // *
@@ -239,17 +241,17 @@ export default {
   ),
   tooltip: {
     style: assign({}, centeredLabelStyles, {
-      padding: 5,
+      padding: 4,
       pointerEvents: "none"
     }),
     flyoutStyle: {
-      stroke: grey900,
-      strokeWidth: 1,
-      fill: "#f0f0f0",
+      stroke: purple,
+      strokeWidth: 0.5,
+      fill: body_bg,
       pointerEvents: "none"
     },
-    cornerRadius: 5,
-    pointerLength: 10
+    cornerRadius: 1,
+    pointerLength: 6
   },
   voronoi: assign(
     {
