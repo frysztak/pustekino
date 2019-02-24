@@ -18,9 +18,11 @@ const colors = [
   cyan900
 ];
 const blueGrey50 = "#ECEFF1";
-const blueGrey300 = "#90A4AE";
+//const blueGrey300 = "#90A4AE";
 const blueGrey700 = "#455A64";
 const grey900 = "#212121";
+
+const red = "#aa290a";
 
 const axisColour = "#adafae";
 // *
@@ -30,6 +32,7 @@ const sansSerif = "'Quicksand', 'Helvetica Neue', Helvetica, sans-serif";
 const letterSpacing = "normal";
 const fontSize = 11;
 const fontColour = "#dedede";
+const ticksColour = "#888";
 // *
 // * Layout
 // *
@@ -56,7 +59,6 @@ const centeredLabelStyles = assign({ textAnchor: "middle" }, baseLabelStyles);
 // *
 // * Strokes
 // *
-const strokeDasharray = "10, 5";
 const strokeLinecap = "round";
 const strokeLinejoin = "round";
 
@@ -100,7 +102,7 @@ export default {
           strokeLinejoin
         },
         tickLabels: assign({}, baseLabelStyles, {
-          fill: fontColour //blueGrey700
+          fill: ticksColour
         })
       }
     },
@@ -193,7 +195,7 @@ export default {
         data: {
           fill: "transparent",
           opacity: 1,
-          stroke: "#cc0000", //blueGrey700,
+          stroke: red,
           strokeWidth: 1
         },
         labels: centeredLabelStyles
