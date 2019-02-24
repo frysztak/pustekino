@@ -33,13 +33,23 @@ interface DispatchProps {
 type Props = StateProps & DispatchProps & ConnectedReduxProps;
 
 class MoviePage extends React.Component<Props> {
+  private joinArray = (arr: string[]) =>
+    arr.reduce((acc, cur) => `${acc}, ${cur}`);
+
+  private bootstrapGrids = {
+    lg: { span: 3, offset: 2 },
+    xl: { span: 2, offset: 2 },
+    md: { span: 3, offset: 1 },
+    sm: { span: 2, offset: 0 }
+  };
+
   render() {
     if (!this.props.movie) {
       return <div>Movie is not selected</div>;
     }
 
     const carousel = (
-      <Carousel>
+      <Carousel className="mb-5">
         {this.props.movie.preview_image_urls.map((url, i) => (
           <Carousel.Item key={i} className="movie-preview-constant-overlay">
             <Image src={url} fluid />
@@ -48,87 +58,94 @@ class MoviePage extends React.Component<Props> {
       </Carousel>
     );
 
-    const joinArray = (arr: string[]) =>
-      arr.reduce((acc, cur) => `${acc}, ${cur}`);
+    const movieInfo = (
+      <div>
+        {this.props.movie.genres.length ? (
+          <h5>
+            <span>
+              <span className="text-muted">Gatunek: </span>
+              {this.joinArray(this.props.movie.genres)}
+            </span>
+          </h5>
+        ) : null}
+
+        {this.props.movie.directors.length ? (
+          <h5>
+            <span>
+              <span className="text-muted">Reżyser: </span>
+              {this.joinArray(this.props.movie.directors)}
+            </span>
+          </h5>
+        ) : null}
+
+        {this.props.movie.country ? (
+          <h5>
+            <span>
+              <span className="text-muted">Kraj: </span>
+              {this.props.movie.country}
+            </span>
+          </h5>
+        ) : null}
+
+        {this.props.movie.actors.length ? (
+          <h5>
+            <span>
+              <span className="text-muted">Aktorzy: </span>
+              {this.joinArray(this.props.movie.actors)}
+            </span>
+          </h5>
+        ) : null}
+
+        {this.props.movie.runtime ? (
+          <h5>
+            <span>
+              <span className="text-muted">Czas trwania: </span>
+              <span>{this.props.movie.runtime}</span>
+              <span> minut</span>
+            </span>
+          </h5>
+        ) : null}
+
+        <hr />
+        <h5>{this.props.movie.description_pl}</h5>
+      </div>
+    );
 
     return (
       <div>
         <NavBar />
         <Container fluid>
           <Row>
-            <Col>
+            <Col md={{ span: 10, offset: 1 }} lg={{ span: 10, offset: 2 }}>
               <h2 className="my-3">{this.props.movie.title_pl}</h2>
             </Col>
           </Row>
           <Row>
-            <Col lg={2} md={4} className="mb-3">
+            <Col {...this.bootstrapGrids} className="mb-5">
               <Image fluid src={this.props.movie.poster_large_url} />
             </Col>
 
-            <Col lg={4} md={8} className="mb-3">
-              {this.props.movie.genres.length ? (
-                <h5>
-                  <span>
-                    <span className="text-muted">Gatunek: </span>
-                    {joinArray(this.props.movie.genres)}
-                  </span>
-                </h5>
-              ) : null}
-
-              {this.props.movie.directors.length ? (
-                <h5>
-                  <span>
-                    <span className="text-muted">Reżyser: </span>
-                    {joinArray(this.props.movie.directors)}
-                  </span>
-                </h5>
-              ) : null}
-
-              {this.props.movie.country ? (
-                <h5>
-                  <span>
-                    <span className="text-muted">Kraj: </span>
-                    {this.props.movie.country}
-                  </span>
-                </h5>
-              ) : null}
-
-              {this.props.movie.actors.length ? (
-                <h5>
-                  <span>
-                    <span className="text-muted">Aktorzy: </span>
-                    {joinArray(this.props.movie.actors)}
-                  </span>
-                </h5>
-              ) : null}
-
-              {this.props.movie.runtime ? (
-                <h5>
-                  <span>
-                    <span className="text-muted">Czas trwania: </span>
-                    <span>{this.props.movie.runtime}</span>
-                    <span> minut</span>
-                  </span>
-                </h5>
-              ) : null}
-
-              <hr />
-              <h5>{this.props.movie.description_pl}</h5>
+            <Col lg={5} md={8} className="mb-3">
+              {movieInfo}
             </Col>
-
-            <Col lg={true}>{{ ...carousel }}</Col>
           </Row>
 
           <Row>
-            <Col>
+            <Col md={{ span: 8, offset: 2 }}>{{ ...carousel }}</Col>
+          </Row>
+
+          <Row>
+            <Col md={{ span: 10, offset: 2 }} lg={{ span: 10, offset: 2 }}>
               {this.props.seancesLoading ? (
                 <div className="loader" />
               ) : (
                 <AllSeances seances={this.props.seances} />
               )}
             </Col>
+          </Row>
 
-            <Col>
+          <Row>
+            <Col md={{ span: 8, offset: 2 }} lg={{ span: 6, offset: 2 }}>
               {this.props.popularityLoading ? (
                 <div className="loader" />
               ) : (
