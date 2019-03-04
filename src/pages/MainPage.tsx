@@ -52,7 +52,9 @@ class MainPage extends Component<Props> {
     const posters = (
       <Container>
         <Row>
-          <h4 className="section-header">Pozostałe filmy</h4>
+          <Col>
+            <h2 className="section-header">Pozostałe filmy</h2>
+          </Col>
         </Row>
         <Row>
           {this.props.movies.map((movie, i) => (
@@ -71,7 +73,6 @@ class MainPage extends Component<Props> {
       <div>
         <NavBar />
         {{ ...carousel }}
-        <hr />
         {{ ...posters }}
       </div>
     );

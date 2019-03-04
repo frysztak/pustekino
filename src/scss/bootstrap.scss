@@ -42,6 +42,21 @@
 
 .section-header {
   font-variant: small-caps;
+  line-height: 300%;
+}
+
+.section-header::after {
+  display: inline-block;
+  content: " ";
+  position: absolute;
+  width: 150px;
+  height: 2px;
+  left: 0;
+  right: 0;
+  margin-left: 25px;
+  margin-right: auto;
+  bottom: 30%;
+  background-color: $primary;
 }
 
 a.card-title:hover {

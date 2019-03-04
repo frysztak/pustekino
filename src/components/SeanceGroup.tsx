@@ -69,7 +69,7 @@ export class SeanceGroup extends React.Component<Props, State> {
       date = `${this.mapDay(d.getDay())} ${d.getDate()}.${month}`;
     }
 
-    const dayNameClass = "h4 ml-2";
+    const dayNameClass = "h4 ml-3";
     const dateClass = skipDayName ? dayNameClass : "h5 text-muted ml-3";
 
     return (

@@ -24,20 +24,16 @@ export class PopularityChart extends React.Component<Props> {
   }
 
   render() {
-    const header = <h4 className="mt-2">Historia zajętych miejsc</h4>;
-
     if (this.props.data.length === 0) {
       return (
         <div>
-          {header}
-          <h5 className="text-muted">Brak danych, zapraszamy później!</h5>
+          <h4 className="text-muted">Brak danych, zapraszamy później!</h4>
         </div>
       );
     }
 
     return (
       <div>
-        {header}
         <VictoryChart
           height={180}
           padding={{ top: 10, left: 40, bottom: 35, right: 35 }}

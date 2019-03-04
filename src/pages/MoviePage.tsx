@@ -136,11 +136,23 @@ class MoviePage extends React.Component<Props> {
 
           <Row>
             <Col md={{ span: 10, offset: 2 }} lg={{ span: 10, offset: 2 }}>
+              <h2 className="section-header">Nadchodzące seanse</h2>
+            </Col>
+          </Row>
+
+          <Row>
+            <Col md={{ span: 10, offset: 2 }} lg={{ span: 10, offset: 2 }}>
               {this.props.seancesLoading ? (
                 <div className="loader" />
               ) : (
                 <AllSeances seances={this.props.seances} />
               )}
+            </Col>
+          </Row>
+
+          <Row>
+            <Col md={{ span: 10, offset: 2 }} lg={{ span: 10, offset: 2 }}>
+              <h2 className="section-header">Historia zajętych miejsc</h2>
             </Col>
           </Row>
 

@@ -15,7 +15,9 @@ export class AllSeances extends React.Component<Props> {
       seances.later.length !== 0;
 
     if (!hasAnySeances) {
-      return <h4>Brak seansów w najbliższych dniach</h4>;
+      return (
+        <h4 className="text-muted">Brak seansów w najbliższych dniach.</h4>
+      );
     }
 
     const result = [];
