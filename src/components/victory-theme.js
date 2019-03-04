@@ -9,7 +9,12 @@ const lime300 = "#DCE775";
 const lightGreen500 = "#8BC34A";
 const teal700 = "#00796B";
 const cyan900 = "#006064";
+const green = "#797561";
+const whitetish = "#e6efee";
+
 const colors = [
+  green,
+  whitetish,
   deepOrange600,
   yellow200,
   lime300,
@@ -23,7 +28,7 @@ const blueGrey700 = "#455A64";
 const grey900 = "#212121";
 
 const purple = "#864e89";
-const red = "#aa290a";
+//const red = "#aa290a";
 const body_bg = "#121223";
 
 const axisColour = "#adafae";
@@ -197,7 +202,7 @@ export default {
         data: {
           fill: "transparent",
           opacity: 1,
-          stroke: red,
+          stroke: green,
           strokeWidth: 1
         },
         labels: centeredLabelStyles
