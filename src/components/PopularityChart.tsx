@@ -24,7 +24,7 @@ export class PopularityChart extends React.Component<Props> {
   }
 
   render() {
-    const header = <h4 className="mt-2">Historia wolnych miejsc</h4>;
+    const header = <h4 className="mt-2">Historia zajętych miejsc</h4>;
 
     if (this.props.data.length === 0) {
       return (
@@ -44,6 +44,7 @@ export class PopularityChart extends React.Component<Props> {
           domainPadding={{ y: 10 }}
           scale={{ x: "time", y: "linear" }}
           theme={myTheme}
+          animate={{ duration: 0 }}
         >
           <VictoryAxis
             dependentAxis
@@ -74,7 +75,7 @@ export class PopularityChart extends React.Component<Props> {
               x="date"
               y="seatAvailability"
               size={(datum, active) => (active ? 3 : 1)}
-              animate={{ duration: 500, onLoad: { duration: 1000 } }}
+              animate={{ duration: 500 }}
               events={[
                 {
                   target: "data",
