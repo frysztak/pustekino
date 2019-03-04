@@ -15,6 +15,7 @@ import { Seances, PopularityPoint } from "../redux/seances/types";
 import { SeanceGroup } from "../components/SeanceGroup";
 import { PopularityChart } from "../components/PopularityChart";
 import { AllSeances } from "../components/AllSeances";
+import { Section } from "../components/Section";
 
 interface StateProps {
   movie: Movie | undefined;
@@ -49,7 +50,7 @@ class MoviePage extends React.Component<Props> {
     }
 
     const carousel = (
-      <Carousel className="mb-5">
+      <Carousel>
         {this.props.movie.preview_image_urls.map((url, i) => (
           <Carousel.Item key={i} className="movie-preview-constant-overlay">
             <Image src={url} fluid />
@@ -136,7 +137,7 @@ class MoviePage extends React.Component<Props> {
 
           <Row>
             <Col md={{ span: 10, offset: 2 }} lg={{ span: 10, offset: 2 }}>
-              <h2 className="section-header">Nadchodzące seanse</h2>
+              <Section name="Nadchodzące seanse" />
             </Col>
           </Row>
 
@@ -152,7 +153,7 @@ class MoviePage extends React.Component<Props> {
 
           <Row>
             <Col md={{ span: 10, offset: 2 }} lg={{ span: 10, offset: 2 }}>
-              <h2 className="section-header">Historia zajętych miejsc</h2>
+              <Section name="Historia zajętych miejsc" />
             </Col>
           </Row>
 

@@ -13,6 +13,7 @@ import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import { MoviePoster } from "../components/MoviePoster";
 import Row from "react-bootstrap/Row";
+import { Section } from "../components/Section";
 
 interface OwnProps {}
 
@@ -53,7 +54,7 @@ class MainPage extends Component<Props> {
       <Container>
         <Row>
           <Col>
-            <h2 className="section-header">Pozostałe filmy</h2>
+            <Section name="Emitowane filmy" />
           </Col>
         </Row>
         <Row>
