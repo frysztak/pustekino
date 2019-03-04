@@ -142,7 +142,7 @@ class MoviePage extends React.Component<Props> {
           </Row>
 
           <Row>
-            <Col md={{ span: 10, offset: 2 }} lg={{ span: 10, offset: 2 }}>
+            <Col md={{ span: 8, offset: 2 }} lg={{ span: 6, offset: 2 }}>
               {this.props.seancesLoading ? (
                 <div className="loader" />
               ) : (
