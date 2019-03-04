@@ -9,8 +9,10 @@ const lime300 = "#DCE775";
 const lightGreen500 = "#8BC34A";
 const teal700 = "#00796B";
 const cyan900 = "#006064";
-const green = "#797561";
-const whitetish = "#e6efee";
+const green = "#488f5f";
+const whitetish = "#c6c2db";
+const purple = "#864e89";
+//const red = "#aa290a";
 
 const colors = [
   green,
@@ -27,8 +29,6 @@ const blueGrey50 = "#ECEFF1";
 const blueGrey700 = "#455A64";
 const grey900 = "#212121";
 
-const purple = "#864e89";
-//const red = "#aa290a";
 const body_bg = "#121223";
 
 const axisColour = "#adafae";

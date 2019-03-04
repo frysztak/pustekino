@@ -70,7 +70,7 @@ export class PopularityChart extends React.Component<Props> {
               data={this.props.data}
               x="date"
               y="seatAvailability"
-              size={(datum, active) => (active ? 3 : 1)}
+              size={(datum, active) => (active ? 3 : 2)}
               animate={{ duration: 500 }}
               events={[
                 {
