@@ -17,6 +17,11 @@ interface Props {
   weekends: Date[][];
 }
 
+interface ChartData {
+  x: Date;
+  y: number;
+}
+
 export class PopularityChart extends React.Component<Props> {
   private getDateTick(date: any) {
     const d = new Date(date);
@@ -25,7 +30,7 @@ export class PopularityChart extends React.Component<Props> {
     return `${day}.${month}`;
   }
 
-  private mapWeekends(weekends: Date[]): Data[] {
+  private mapWeekends(weekends: Date[]): ChartData[] {
     const first = new Date(weekends[0]);
     const last = new Date(weekends[weekends.length - 1]);
 
