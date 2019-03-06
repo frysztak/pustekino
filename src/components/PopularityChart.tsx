@@ -11,6 +11,16 @@ import {
   VictoryArea
 } from "victory";
 import myTheme from "./victory-theme";
+import {
+  LineChart,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+  Line,
+  ReferenceArea
+} from "recharts";
 
 interface Props {
   data: PopularityPoint[];
@@ -56,6 +66,43 @@ export class PopularityChart extends React.Component<Props> {
 
     return (
       <div>
+        <LineChart
+          width={730}
+          height={350}
+          margin={{ top: 5, right: 30, left: 20, bottom: 25 }}
+          data={this.props.data}
+        >
+          <XAxis
+            dataKey="date"
+            tickFormatter={x => this.getDateTick(x)}
+            interval={1}
+            tickMargin={20}
+          />
+          <YAxis
+            tickFormatter={x => `${(x * 100).toFixed(0)}%`}
+            tickMargin={20}
+          />
+          <Tooltip />
+          <Line type="monotone" dataKey="seatAvailability" />
+
+          {this.props.weekends.map((group, i) => {
+            console.log(group, typeof group[0]);
+            const first = new Date(group[0]).getTime();
+            const last = new Date(group[group.length - 1]).getTime();
+            return (
+              <ReferenceArea
+                key={i}
+                x1={first}
+                x2={last}
+                y1={0}
+                y2={1}
+                stroke="red"
+                strokeOpacity={0.3}
+              />
+            );
+          })}
+        </LineChart>
+        {/*
         <VictoryChart
           height={180}
           padding={{ top: 10, left: 40, bottom: 35, right: 35 }}
@@ -137,6 +184,7 @@ export class PopularityChart extends React.Component<Props> {
             ))}
           </VictoryGroup>
         </VictoryChart>
+            */}
       </div>
     );
   }
