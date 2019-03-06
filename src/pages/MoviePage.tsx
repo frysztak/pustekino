@@ -23,6 +23,7 @@ interface StateProps {
   seances: Seances;
   seancesLoading: boolean;
   popularity: PopularityPoint[];
+  weekends: Date[][];
   popularityLoading: boolean;
 }
 
@@ -162,7 +163,10 @@ class MoviePage extends React.Component<Props> {
               {this.props.popularityLoading ? (
                 <div className="loader" />
               ) : (
-                <PopularityChart data={this.props.popularity} />
+                <PopularityChart
+                  data={this.props.popularity}
+                  weekends={this.props.weekends}
+                />
               )}
             </Col>
           </Row>
@@ -178,6 +182,7 @@ const mapStateToProps = (state: AppState): StateProps => ({
   seancesLoading: state.seances.loading,
   movieHash: state.router.location.hash,
   popularity: state.seances.popularity.points,
+  weekends: state.seances.popularity.weekends,
   popularityLoading: state.seances.popularity.loading
 });
 

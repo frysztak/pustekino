@@ -20,7 +20,8 @@ const initialPopularity = {
   cinemaId: -1,
   loading: true,
   errorMessage: undefined,
-  points: []
+  points: [],
+  weekends: [[]]
 };
 
 const initialState: SeancesState = {
@@ -131,14 +132,15 @@ const reducer: Reducer<SeancesState> = (state = initialState, action) => {
     }
 
     case SeancesActionTypes.FETCH_POPULARITY_SUCCESS: {
-      const { points } = action.payload;
+      const { points, weekends } = action.payload;
       return {
         ...state,
         popularity: {
           ...state.popularity,
           loading: false,
           errorMessage: undefined,
-          points: points
+          points: points,
+          weekends: weekends
         }
       };
     }

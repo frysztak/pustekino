@@ -37,6 +37,7 @@ export interface Popularity {
   movieId: number;
   cinemaId: number;
   points: PopularityPoint[];
+  weekends: Date[][];
 }
 
 export interface PopularityPoint {
