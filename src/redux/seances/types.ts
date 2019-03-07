@@ -1,5 +1,7 @@
 import { Movie } from "../movies/types";
 
+export type NumericDate = number;
+
 export interface Seances {
   movieId: number;
   cinemaId: number;
@@ -18,7 +20,7 @@ export interface Seance {
   loading: boolean;
   errorMessage: string | undefined;
   multikinoId: number;
-  date: Date;
+  date: NumericDate;
   allSeatCount: number;
   takenSeatCount: number;
   seatAvailability: number;
@@ -37,11 +39,11 @@ export interface Popularity {
   movieId: number;
   cinemaId: number;
   points: PopularityPoint[];
-  weekends: Date[][];
+  weekends: NumericDate[][];
 }
 
 export interface PopularityPoint {
-  date: Date;
+  date: NumericDate;
   seatAvailability: number;
 }
 

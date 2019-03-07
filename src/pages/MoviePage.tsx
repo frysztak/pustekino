@@ -11,7 +11,7 @@ import { NavBar } from "../components/NavBar";
 import { selectMovie } from "../redux/movies/actions";
 import Carousel from "react-bootstrap/Carousel";
 import { fetchSeancesRequest } from "../redux/seances/actions";
-import { Seances, PopularityPoint } from "../redux/seances/types";
+import { Seances, PopularityPoint, NumericDate } from "../redux/seances/types";
 import { SeanceGroup } from "../components/SeanceGroup";
 import { PopularityChart } from "../components/PopularityChart";
 import { AllSeances } from "../components/AllSeances";
@@ -23,7 +23,7 @@ interface StateProps {
   seances: Seances;
   seancesLoading: boolean;
   popularity: PopularityPoint[];
-  weekends: Date[][];
+  weekends: NumericDate[][];
   popularityLoading: boolean;
 }
 

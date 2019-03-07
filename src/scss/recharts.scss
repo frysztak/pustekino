@@ -5,5 +5,17 @@
 
 .recharts-line-curve {
   stroke: $green;
-  stroke-width: 2;
+  stroke-width: 3;
+}
+
+.recharts-reference-area-rect {
+  fill-opacity: 0.3;
+  fill: lighten($color: $body-bg, $amount: 30%);
+}
+
+.recharts-tooltip {
+  @extend .btn-xl;
+  background: $body-bg;
+  border: 1px solid $primary;
+  border-radius: 4px;
 }
