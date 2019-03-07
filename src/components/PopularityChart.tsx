@@ -74,7 +74,7 @@ export class PopularityChart extends React.Component<Props> {
       );
     }
 
-    const domain: [number, number] = [
+    const xDomain: [number, number] = [
       this.props.data[0].date,
       this.props.data[this.props.data.length - 1].date
     ];
@@ -90,7 +90,7 @@ export class PopularityChart extends React.Component<Props> {
               dataKey="date"
               type="number"
               scale="linear"
-              domain={domain}
+              domain={xDomain}
               padding={{ left: 10, right: 10 }}
               tickFormatter={xTickFormatter}
               tickMargin={20}
@@ -116,7 +116,7 @@ export class PopularityChart extends React.Component<Props> {
                   x2={last}
                   y1={0}
                   y2={1}
-                  ifOverflow="extendDomain"
+                  ifOverflow="hidden"
                 />
               );
             })}
