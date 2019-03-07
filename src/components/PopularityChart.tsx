@@ -49,15 +49,15 @@ export class PopularityChart extends React.Component<Props> {
     if (active && payload) {
       return (
         <div className="recharts-tooltip">
-          <p>
+          <div>
             <span className="text-muted">Dzień: </span>
             <span>{xTooltipFormatter(label)}</span>
-          </p>
+          </div>
 
-          <p>
+          <div>
             <span className="text-muted">Zajętych miejsc: </span>
             <span>{yTickFormatter(payload[0].value)}</span>
-          </p>
+          </div>
         </div>
       );
     }
@@ -106,8 +106,6 @@ export class PopularityChart extends React.Component<Props> {
               isAnimationActive={false}
             />
 
-            <Line type="monotone" dataKey="seatAvailability" />
-
             {this.props.weekends.map((group, i) => {
               const first = group[0];
               const last = group[group.length - 1];
@@ -119,10 +117,11 @@ export class PopularityChart extends React.Component<Props> {
                   y1={0}
                   y2={1}
                   ifOverflow="extendDomain"
-                  strokeOpacity={0.3}
                 />
               );
             })}
+
+            <Line type="monotone" dataKey="seatAvailability" />
           </LineChart>
         </ResponsiveContainer>
       </div>

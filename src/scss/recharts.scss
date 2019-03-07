@@ -4,13 +4,18 @@
 }
 
 .recharts-line-curve {
-  stroke: $green;
+  stroke: $pink;
   stroke-width: 3;
 }
 
+.recharts-line-dot {
+  stroke: $primary;
+  stroke-width: 1px;
+  fill: $white;
+}
+
 .recharts-reference-area-rect {
-  fill-opacity: 0.3;
-  fill: lighten($color: $body-bg, $amount: 30%);
+  fill: lighten($color: $body-bg, $amount: 10%);
 }
 
 .recharts-tooltip {
