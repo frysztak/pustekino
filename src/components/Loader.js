@@ -1,5 +1,6 @@
 import React from "react";
-import { fetchRequest } from "../redux/movies/actions";
+import { fetchRequest as fetchMovies } from "../redux/movies/actions";
+import { fetchRequest as fetchCinemas } from "../redux/cinemas/actions";
 import { connect } from "react-redux";
 import "./../scss/loader.scss";
 
@@ -11,6 +12,10 @@ export function withLoader(WrappedComponent) {
     componentDidMount() {
       if (this.props.movies.length === 0) {
         this.props.loadMovies();
+      }
+
+      if (this.props.cinemas.length === 0) {
+        this.props.loadCinemas();
       }
     }
 
@@ -24,11 +29,13 @@ export function withLoader(WrappedComponent) {
 
   const mapStateToProps = (state, ownProps) => ({
     movies: state.movies.movies,
+    cinemas: state.cinemas.cinemas,
     loading: state.movies.loading
   });
 
   const mapDispatchToProps = dispatch => ({
-    loadMovies: () => dispatch(fetchRequest())
+    loadMovies: () => dispatch(fetchMovies()),
+    loadCinemas: () => dispatch(fetchCinemas())
   });
 
   return connect(

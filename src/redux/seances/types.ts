@@ -10,7 +10,7 @@ export interface Seances {
   later: Seance[][];
 }
 
-interface LoadingState {
+export interface LoadingState {
   loading: boolean;
   errorMessage: string | undefined;
 }

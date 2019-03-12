@@ -21,6 +21,9 @@ import createSagaMiddleware from "redux-saga";
 import { seancesReducer } from "./reducers/seances";
 import { SeancesState } from "./seances/types";
 import seancesSaga from "./seances/sagas";
+import { CinemasState } from "./cinemas/types";
+import { cinemasReducer } from "./reducers/cinemas";
+import cinemasSaga from "./cinemas/sagas";
 
 const composeEnhancers = composeWithDevTools({
   trace: true
@@ -31,7 +34,8 @@ export const history = createBrowserHistory();
 export const rootReducer = combineReducers<AppState>({
   router: connectRouter(history),
   movies: moviesReducer,
-  seances: seancesReducer
+  seances: seancesReducer,
+  cinemas: cinemasReducer
 });
 
 const sagaMiddleware = createSagaMiddleware();
@@ -51,8 +55,9 @@ export interface AppState {
   router: RouterState;
   movies: MoviesState;
   seances: SeancesState;
+  cinemas: CinemasState;
 }
 
 export function* rootSaga() {
-  yield all([fork(moviesSaga), fork(seancesSaga)]);
+  yield all([fork(moviesSaga), fork(seancesSaga), fork(cinemasSaga)]);
 }
