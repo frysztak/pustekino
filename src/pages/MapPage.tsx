@@ -54,25 +54,26 @@ class MapPage extends React.Component<Props> {
         <NavBar />
         <Container fluid>
           <Row>
-            <Col sm={{ span: 6, offset: 3 }}>
+            <Col md={{ span: 6, offset: 3 }}>
               <h5>{cinemas}</h5>
             </Col>
           </Row>
 
           <Row>
-            <Col sm={{ span: 6, offset: 3 }}>
+            <Col md={{ span: 6, offset: 3 }}>
               <ComposableMap
+                className="mx-auto"
                 projection="mercator"
-                projectionConfig={{ scale: 800 }}
-                width={280}
-                height={280}
+                projectionConfig={{ scale: 850 }}
+                width={250}
+                height={150}
                 style={{
                   width: "100%",
                   height: "auto"
                 }}
               >
                 <ZoomableGroup center={origin} disablePanning>
-                  <Geographies geography={map} disableOptimization>
+                  <Geographies geography={map}>
                     {(geographies, projection) =>
                       geographies.map((geography, i) => (
                         <Geography

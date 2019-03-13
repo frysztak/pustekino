@@ -1,3 +1,10 @@
 .rsm-geography {
+  fill: darken($color: $primary, $amount: 10%);
+  stroke: darken($color: $primary, $amount: 20%);
+  stroke-width: 0.25;
+  outline: none;
+}
+
+.rsm-geography:hover {
   fill: $primary;
 }
