@@ -1,8 +1,9 @@
 import { action } from "typesafe-actions";
-import { CinemasActionTypes, Cinema } from "./types";
+import { CinemasActionTypes } from "./types";
+import { CinemaResponse } from "./sagas";
 
 export const fetchRequest = () => action(CinemasActionTypes.FETCH_REQUEST);
-export const fetchSuccess = (data: Cinema[]) =>
+export const fetchSuccess = (data: CinemaResponse) =>
   action(CinemasActionTypes.FETCH_SUCCESS, data);
 export const fetchError = (message: string) =>
   action(CinemasActionTypes.FETCH_ERROR, message);

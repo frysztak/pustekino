@@ -9,6 +9,7 @@ import { history, store } from "./redux/store";
 import * as serviceWorker from "./serviceWorker";
 import MoviePage from "./pages/MoviePage";
 import { withLoader } from "./components/Loader";
+import MapPage from "./pages/MapPage";
 
 ReactDOM.render(
   <Provider store={store}>
@@ -17,6 +18,7 @@ ReactDOM.render(
         <Switch>
           <Route exact path="/" component={withLoader(MainPage)} />
           <Route path="/movie" component={withLoader(MoviePage)} />
+          <Route path="/cinemas" component={MapPage} />
           <Route render={() => <div>Miss</div>} />
         </Switch>
       </>

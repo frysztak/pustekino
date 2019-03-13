@@ -9,6 +9,7 @@ export interface Cinema {
 export interface CinemasState {
   cinemas: Cinema[];
   currentCinema: Cinema | undefined;
+  map: any | undefined;
   loading: boolean;
   errorMessage: string | undefined;
 }

@@ -4,6 +4,7 @@ import { Reducer } from "redux";
 const initialState: CinemasState = {
   cinemas: [],
   currentCinema: undefined,
+  map: undefined,
   errorMessage: undefined,
   loading: false
 };
@@ -14,7 +15,8 @@ const reducer: Reducer<CinemasState> = (state = initialState, action) => {
       return { ...state, loading: true };
     }
     case CinemasActionTypes.FETCH_SUCCESS: {
-      return { ...state, loading: false, cinemas: action.payload };
+      const { cinemas, map } = action.payload;
+      return { ...state, loading: false, cinemas: cinemas, map: map };
     }
     case CinemasActionTypes.FETCH_ERROR: {
       return { ...state, loading: false, errorMessage: action.payload };
