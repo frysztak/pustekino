@@ -13,6 +13,10 @@ import { MarkerWithText, CinemasMap } from "../components/CinemasMap";
 
 interface OwnProps {}
 
+interface OwnState {
+  cinemasInRange: Cinema[];
+}
+
 interface StateProps {
   loading: boolean;
   error: string | undefined;
@@ -27,11 +31,24 @@ interface DispatchProps {
 
 type Props = StateProps & DispatchProps & ConnectedReduxProps;
 
-class MapPage extends React.Component<Props> {
+class MapPage extends React.Component<Props, OwnState> {
+  constructor(props: Props) {
+    super(props);
+    this.cinemasInRangeChanged = this.cinemasInRangeChanged.bind(this);
+
+    this.state = {
+      cinemasInRange: []
+    };
+  }
+
   componentDidMount() {
     if (this.props.cinemas.length === 0 || this.props.map === undefined) {
       this.props.load();
     }
+  }
+
+  cinemasInRangeChanged(cinemas: Cinema[]) {
+    this.setState({ cinemasInRange: cinemas });
   }
 
   render() {
@@ -40,7 +57,19 @@ class MapPage extends React.Component<Props> {
     }
 
     const map = this.props.map;
-    const cinemas = this.props.cinemas.map(c => c.name).join(" | ");
+    const separator = <span> | </span>;
+    const cinemas = this.props.cinemas
+      .map(c => {
+        const inRange = this.state.cinemasInRange.find(
+          cinema => cinema.multikinoId === c.multikinoId
+        );
+        const cls = inRange ? "" : "text-muted";
+        return <span className={cls}>{c.name}</span>;
+      })
+      .reduce(
+        (acc, curr) => (acc.length === 0 ? [curr] : [...acc, separator, curr]),
+        [] as JSX.Element[]
+      );
     const markers = this.props.cinemas.map(
       (c: Cinema): MarkerWithText => ({
         coordinates: [c.longitude, c.latitude],
@@ -64,6 +93,7 @@ class MapPage extends React.Component<Props> {
                 map={map}
                 cinemas={this.props.cinemas}
                 markers={markers}
+                cinemasInRangeChanged={this.cinemasInRangeChanged}
               />
             </Col>
           </Row>

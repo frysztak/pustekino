@@ -11,10 +11,13 @@ import {
   MarkerType
 } from "react-simple-maps";
 import { Motion, spring } from "react-motion";
+import { geoContains } from "d3-geo";
+import { MultikinoLogo } from "./MultikinoLogo";
 
 interface State {
   center: [number, number];
   zoom: number;
+  cinemasInRange: Cinema[];
 }
 
 export type MarkerWithText = MarkerType & { text: string };
@@ -23,6 +26,7 @@ interface Props {
   map: any;
   cinemas: Cinema[];
   markers: MarkerWithText[];
+  cinemasInRangeChanged: (cinemas: Cinema[]) => void;
 }
 
 export class CinemasMap extends React.Component<Props, State> {
@@ -33,7 +37,8 @@ export class CinemasMap extends React.Component<Props, State> {
     const origin: [number, number] = [19.4803112, 52.0693234];
     this.state = {
       center: origin,
-      zoom: 1
+      zoom: 1,
+      cinemasInRange: []
     };
 
     this.handleZoomIn = this.handleZoomIn.bind(this);
@@ -80,10 +85,17 @@ export class CinemasMap extends React.Component<Props, State> {
   }
   handleProvinceClick(geo: any) {
     const center = this.getCenter(geo.geometry);
+    const cinemasInRange = this.props.cinemas.filter(c =>
+      geoContains(geo, [c.longitude, c.latitude])
+    );
+
     this.setState({
       zoom: 2.5,
-      center: center
+      center: center,
+      cinemasInRange: cinemasInRange
     });
+
+    this.props.cinemasInRangeChanged(cinemasInRange);
   }
   handleReset() {
     this.setState({
@@ -107,7 +119,7 @@ export class CinemasMap extends React.Component<Props, State> {
             projection="mercator"
             projectionConfig={{ scale: 850 }}
             width={250}
-            height={150}
+            height={160}
             style={{
               width: "100%",
               height: "auto"
@@ -129,7 +141,7 @@ export class CinemasMap extends React.Component<Props, State> {
               <Markers>
                 {this.props.markers.map((marker, i) => (
                   <Marker key={i} marker={marker}>
-                    <circle r={1.5} />
+                    <MultikinoLogo />
                   </Marker>
                 ))}
               </Markers>
