@@ -3,8 +3,14 @@
   stroke: darken($color: $primary, $amount: 20%);
   stroke-width: 0.25;
   outline: none;
+  transition: all 250ms;
 }
 
 .rsm-geography:hover {
   fill: $primary;
+}
+
+.rsm-marker {
+  fill: $pink;
+  outline: none;
 }

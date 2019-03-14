@@ -9,12 +9,7 @@ import { NavBar } from "../components/NavBar";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import {
-  ComposableMap,
-  ZoomableGroup,
-  Geographies,
-  Geography
-} from "react-simple-maps";
+import { MarkerWithText, CinemasMap } from "../components/CinemasMap";
 
 interface OwnProps {}
 
@@ -45,9 +40,13 @@ class MapPage extends React.Component<Props> {
     }
 
     const map = this.props.map;
-    const origin: [number, number] = [19.4803112, 52.0693234];
-
     const cinemas = this.props.cinemas.map(c => c.name).join(" | ");
+    const markers = this.props.cinemas.map(
+      (c: Cinema): MarkerWithText => ({
+        coordinates: [c.longitude, c.latitude],
+        text: c.name
+      })
+    );
 
     return (
       <div>
@@ -61,31 +60,11 @@ class MapPage extends React.Component<Props> {
 
           <Row>
             <Col md={{ span: 6, offset: 3 }}>
-              <ComposableMap
-                className="mx-auto"
-                projection="mercator"
-                projectionConfig={{ scale: 850 }}
-                width={250}
-                height={150}
-                style={{
-                  width: "100%",
-                  height: "auto"
-                }}
-              >
-                <ZoomableGroup center={origin} disablePanning>
-                  <Geographies geography={map}>
-                    {(geographies, projection) =>
-                      geographies.map((geography, i) => (
-                        <Geography
-                          key={`geography-${i}`}
-                          geography={geography}
-                          projection={projection}
-                        />
-                      ))
-                    }
-                  </Geographies>
-                </ZoomableGroup>
-              </ComposableMap>
+              <CinemasMap
+                map={map}
+                cinemas={this.props.cinemas}
+                markers={markers}
+              />
             </Col>
           </Row>
         </Container>
