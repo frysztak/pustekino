@@ -39,11 +39,14 @@ export class CinemasMap extends React.Component<Props, State> {
     };
 
     this.handleProvinceClick = this.handleProvinceClick.bind(this);
+    this.resetProvince = this.resetProvince.bind(this);
 
     this.props.cinemasInRangeChanged(this.props.cinemas);
   }
 
-  handleProvinceClick(geo: any) {
+  handleProvinceClick(geo: any, evt: React.MouseEvent) {
+    evt.stopPropagation();
+
     const cinemasInRange = this.props.cinemas.filter(c =>
       geoContains(geo, [c.longitude, c.latitude])
     );
@@ -56,48 +59,59 @@ export class CinemasMap extends React.Component<Props, State> {
     this.props.cinemasInRangeChanged(cinemasInRange);
   }
 
+  resetProvince() {
+    this.setState({
+      cinemasInRange: this.props.cinemas,
+      selectedProvince: ""
+    });
+    this.props.cinemasInRangeChanged(this.props.cinemas);
+  }
+
   render() {
     return (
-      <ComposableMap
-        projection="mercator"
-        projectionConfig={{ scale: 2100, yOffset: 400, xOffset: -100 }}
-        width={500}
-        height={450}
-        style={{
-          width: "100%",
-          height: "auto"
-        }}
-      >
-        <ZoomableGroup center={origin} disablePanning>
-          <Geographies geography={this.props.map} disableOptimization>
-            {(geographies, projection) =>
-              geographies.map((geography: any, i) => (
-                <Geography
-                  key={`geography-${i}`}
-                  geography={geography}
-                  projection={projection}
-                  onClick={this.handleProvinceClick}
-                  style={
-                    geography.properties.NAME_1 === this.state.selectedProvince
-                      ? {
-                          default: { fill: "#965799" },
-                          hover: { fill: "#965799" }
-                        }
-                      : {}
-                  }
-                />
-              ))
-            }
-          </Geographies>
-          <Markers>
-            {this.props.markers.map((marker, i) => (
-              <Marker key={i} marker={marker}>
-                <MultikinoLogo />
-              </Marker>
-            ))}
-          </Markers>
-        </ZoomableGroup>
-      </ComposableMap>
+      <div onClick={this.resetProvince}>
+        <ComposableMap
+          projection="mercator"
+          projectionConfig={{ scale: 2100, yOffset: 400, xOffset: -100 }}
+          width={500}
+          height={450}
+          style={{
+            width: "100%",
+            height: "auto"
+          }}
+        >
+          <ZoomableGroup center={origin} disablePanning>
+            <Geographies geography={this.props.map} disableOptimization>
+              {(geographies, projection) =>
+                geographies.map((geography: any, i) => (
+                  <Geography
+                    key={`geography-${i}`}
+                    geography={geography}
+                    projection={projection}
+                    onClick={this.handleProvinceClick}
+                    style={
+                      geography.properties.NAME_1 ===
+                      this.state.selectedProvince
+                        ? {
+                            default: { fill: "#965799" },
+                            hover: { fill: "#965799" }
+                          }
+                        : {}
+                    }
+                  />
+                ))
+              }
+            </Geographies>
+            <Markers>
+              {this.props.markers.map((marker, i) => (
+                <Marker key={i} marker={marker}>
+                  <MultikinoLogo />
+                </Marker>
+              ))}
+            </Markers>
+          </ZoomableGroup>
+        </ComposableMap>
+      </div>
     );
   }
 }
