@@ -17,13 +17,14 @@ interface State {
   selectedProvince: string;
 }
 
-export type MarkerWithText = MarkerType & { text: string };
+export type CustomMarker = MarkerType & { text: string; cinemaId: number };
 
 interface Props {
   map: any;
   cinemas: Cinema[];
-  markers: MarkerWithText[];
+  markers: CustomMarker[];
   cinemasInRangeChanged: (cinemas: Cinema[]) => void;
+  hoversOverCinema: number;
 }
 
 // center of Poland
@@ -106,7 +107,9 @@ export class CinemasMap extends React.Component<Props, State> {
             <Markers>
               {this.props.markers.map((marker, i) => (
                 <Marker key={i} marker={marker}>
-                  <MultikinoLogo />
+                  <MultikinoLogo
+                    animate={marker.cinemaId === this.props.hoversOverCinema}
+                  />
                 </Marker>
               ))}
             </Markers>

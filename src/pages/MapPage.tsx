@@ -9,13 +9,16 @@ import { NavBar } from "../components/NavBar";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { MarkerWithText, CinemasMap } from "../components/CinemasMap";
+import { CustomMarker, CinemasMap } from "../components/CinemasMap";
 import ListGroup from "react-bootstrap/ListGroup";
+import { Section } from "../components/Section";
+import { CinemaListItem } from "../components/CinemaListItem";
 
 interface OwnProps {}
 
 interface OwnState {
   cinemasInRange: Cinema[];
+  hoversOverCinema: number;
 }
 
 interface StateProps {
@@ -36,9 +39,11 @@ class MapPage extends React.Component<Props, OwnState> {
   constructor(props: Props) {
     super(props);
     this.cinemasInRangeChanged = this.cinemasInRangeChanged.bind(this);
+    this.handleCinemaHover = this.handleCinemaHover.bind(this);
 
     this.state = {
-      cinemasInRange: []
+      cinemasInRange: [],
+      hoversOverCinema: -1
     };
   }
 
@@ -52,6 +57,10 @@ class MapPage extends React.Component<Props, OwnState> {
     this.setState({ cinemasInRange: cinemas });
   }
 
+  handleCinemaHover(cinemaId: number) {
+    this.setState({ hoversOverCinema: cinemaId });
+  }
+
   render() {
     if (this.props.loading || this.props.cinemas.length === 0) {
       return <div>Loading...</div>;
@@ -59,9 +68,10 @@ class MapPage extends React.Component<Props, OwnState> {
 
     const map = this.props.map;
     const markers = this.props.cinemas.map(
-      (c: Cinema): MarkerWithText => ({
+      (c: Cinema): CustomMarker => ({
         coordinates: [c.longitude, c.latitude],
-        text: c.name
+        text: c.name,
+        cinemaId: c.multikinoId
       })
     );
 
@@ -71,16 +81,25 @@ class MapPage extends React.Component<Props, OwnState> {
         <Container>
           <Row>
             <Col md={4}>
-              <h3 className="section-header">Kina w regionie</h3>
-              <ListGroup className="scrollable-list">
-                {this.state.cinemasInRange.map(cinema => (
-                  <ListGroup.Item action key={cinema.multikinoId}>
-                    <h5>
-                      {cinema.chain} {cinema.name}
-                    </h5>
-                  </ListGroup.Item>
-                ))}
-              </ListGroup>
+              <Section name="Kina w regionie" />
+            </Col>
+          </Row>
+
+          <Row>
+            <Col>
+              {this.state.cinemasInRange.length === 0 ? (
+                <h5>Multikino jeszcze nie zawitało do tego województwa</h5>
+              ) : (
+                <ListGroup className="scrollable-list">
+                  {this.state.cinemasInRange.map(cinema => (
+                    <CinemaListItem
+                      key={cinema.id}
+                      cinema={cinema}
+                      onCinemaHover={this.handleCinemaHover}
+                    />
+                  ))}
+                </ListGroup>
+              )}
             </Col>
 
             <Col md={{ span: 8 }}>
@@ -88,6 +107,7 @@ class MapPage extends React.Component<Props, OwnState> {
                 map={map}
                 cinemas={this.props.cinemas}
                 markers={markers}
+                hoversOverCinema={this.state.hoversOverCinema}
                 cinemasInRangeChanged={this.cinemasInRangeChanged}
               />
             </Col>
