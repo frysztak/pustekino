@@ -86,6 +86,7 @@ export class CinemasMap extends React.Component<Props, State> {
                 geographies.map((geography: any, i) => (
                   <Geography
                     key={`geography-${i}`}
+                    cacheId={`geography-${i}`}
                     geography={geography}
                     projection={projection}
                     onClick={this.handleProvinceClick}
