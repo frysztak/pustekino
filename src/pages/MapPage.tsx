@@ -10,6 +10,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { MarkerWithText, CinemasMap } from "../components/CinemasMap";
+import ListGroup from "react-bootstrap/ListGroup";
 
 interface OwnProps {}
 
@@ -57,19 +58,6 @@ class MapPage extends React.Component<Props, OwnState> {
     }
 
     const map = this.props.map;
-    const separator = <span> | </span>;
-    const cinemas = this.props.cinemas
-      .map(c => {
-        const inRange = this.state.cinemasInRange.find(
-          cinema => cinema.multikinoId === c.multikinoId
-        );
-        const cls = inRange ? "" : "text-muted";
-        return <span className={cls}>{c.name}</span>;
-      })
-      .reduce(
-        (acc, curr) => (acc.length === 0 ? [curr] : [...acc, separator, curr]),
-        [] as JSX.Element[]
-      );
     const markers = this.props.cinemas.map(
       (c: Cinema): MarkerWithText => ({
         coordinates: [c.longitude, c.latitude],
@@ -80,15 +68,22 @@ class MapPage extends React.Component<Props, OwnState> {
     return (
       <div>
         <NavBar />
-        <Container fluid>
+        <Container>
           <Row>
-            <Col md={{ span: 6, offset: 3 }}>
-              <h5>{cinemas}</h5>
+            <Col md={4}>
+              <h3 className="section-header">Kina w regionie</h3>
+              <ListGroup className="scrollable-list">
+                {this.state.cinemasInRange.map(cinema => (
+                  <ListGroup.Item action key={cinema.multikinoId}>
+                    <h5>
+                      {cinema.chain} {cinema.name}
+                    </h5>
+                  </ListGroup.Item>
+                ))}
+              </ListGroup>
             </Col>
-          </Row>
 
-          <Row>
-            <Col md={{ span: 6, offset: 3 }}>
+            <Col md={{ span: 8 }}>
               <CinemasMap
                 map={map}
                 cinemas={this.props.cinemas}
