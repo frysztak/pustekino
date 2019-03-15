@@ -14,6 +14,7 @@ import { MultikinoLogo } from "./MultikinoLogo";
 
 interface State {
   cinemasInRange: Cinema[];
+  selectedProvince: string;
 }
 
 export type MarkerWithText = MarkerType & { text: string };
@@ -25,15 +26,16 @@ interface Props {
   cinemasInRangeChanged: (cinemas: Cinema[]) => void;
 }
 
+// center of Poland
 const origin: [number, number] = [19.4803112, 52.0693234];
 
 export class CinemasMap extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    // center of Poland
     this.state = {
-      cinemasInRange: []
+      cinemasInRange: [],
+      selectedProvince: ""
     };
 
     this.handleProvinceClick = this.handleProvinceClick.bind(this);
@@ -47,7 +49,8 @@ export class CinemasMap extends React.Component<Props, State> {
     );
 
     this.setState({
-      cinemasInRange: cinemasInRange
+      cinemasInRange: cinemasInRange,
+      selectedProvince: geo.properties.NAME_1
     });
 
     this.props.cinemasInRangeChanged(cinemasInRange);
@@ -66,14 +69,22 @@ export class CinemasMap extends React.Component<Props, State> {
         }}
       >
         <ZoomableGroup center={origin} disablePanning>
-          <Geographies geography={this.props.map}>
+          <Geographies geography={this.props.map} disableOptimization>
             {(geographies, projection) =>
-              geographies.map((geography, i) => (
+              geographies.map((geography: any, i) => (
                 <Geography
                   key={`geography-${i}`}
                   geography={geography}
                   projection={projection}
                   onClick={this.handleProvinceClick}
+                  style={
+                    geography.properties.NAME_1 === this.state.selectedProvince
+                      ? {
+                          default: { fill: "#965799" },
+                          hover: { fill: "#965799" }
+                        }
+                      : {}
+                  }
                 />
               ))
             }
