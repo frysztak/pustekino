@@ -10,10 +10,6 @@ import "./../scss/loader.scss";
 export function withLoader(WrappedComponent) {
   class WithLoader extends React.Component {
     componentDidMount() {
-      if (this.props.movies.length === 0) {
-        this.props.loadMovies();
-      }
-
       if (this.props.cinemas.length === 0) {
         this.props.loadCinemas();
       }
