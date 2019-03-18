@@ -2,6 +2,8 @@ import { all, fork, call, put, takeEvery, select } from "redux-saga/effects";
 import { callApi } from "../../utils/api";
 import { fetchSuccess, fetchError } from "./actions";
 import { CinemasActionTypes, Cinema } from "./types";
+import { AnyAction } from "redux";
+import { push } from "connected-react-router";
 
 const baseUrl = process.env.REACT_APP_API_BASE_URL as string;
 
@@ -11,7 +13,7 @@ export interface CinemaResponse {
 }
 
 export default function* cinemasSaga() {
-  yield all([fork(watchFetchRequest)]);
+  yield all([fork(watchFetchRequest), fork(watchCinemaSelected)]);
 }
 
 function* watchFetchRequest() {
@@ -27,4 +29,14 @@ function* handleFetch() {
     console.log(err);
     yield put(fetchError(err));
   }
+}
+
+function* watchCinemaSelected() {
+  yield takeEvery(CinemasActionTypes.CINEMA_SELECTED, handleCinemaSelected);
+}
+
+function* handleCinemaSelected(action: AnyAction) {
+  const cinemaId = action.payload as number;
+  localStorage.setItem("cinemaId", cinemaId.toString());
+  yield put(push("/"));
 }

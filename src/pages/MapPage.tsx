@@ -40,6 +40,7 @@ class MapPage extends React.Component<Props, OwnState> {
     super(props);
     this.cinemasInRangeChanged = this.cinemasInRangeChanged.bind(this);
     this.handleCinemaHover = this.handleCinemaHover.bind(this);
+    this.handleCinemaClick = this.handleCinemaClick.bind(this);
 
     this.state = {
       cinemasInRange: [],
@@ -59,6 +60,10 @@ class MapPage extends React.Component<Props, OwnState> {
 
   handleCinemaHover(cinemaId: number) {
     this.setState({ hoversOverCinema: cinemaId });
+  }
+
+  handleCinemaClick(cinemaId: number) {
+    this.props.selectCinema(cinemaId);
   }
 
   render() {
@@ -96,6 +101,7 @@ class MapPage extends React.Component<Props, OwnState> {
                       key={cinema.id}
                       cinema={cinema}
                       onCinemaHover={this.handleCinemaHover}
+                      onCinemaClick={this.handleCinemaClick}
                     />
                   ))}
                 </ListGroup>
