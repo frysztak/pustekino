@@ -11,13 +11,11 @@ import { AppState } from "../store";
 import { clearSeances, fetchSeancesRequest } from "../seances/actions";
 import { AnyAction } from "redux";
 
-const CinemaId = 18;
 const baseUrl = process.env.REACT_APP_API_BASE_URL as string;
+const currentCinemaSelector = (state: AppState) => state.cinemas.currentCinema;
 
 function* handleFetch() {
   try {
-    const currentCinemaSelector = (state: AppState) =>
-      state.cinemas.currentCinema;
     const currentCinema: ReturnType<
       typeof currentCinemaSelector
     > = yield select(currentCinemaSelector);
@@ -61,9 +59,19 @@ function* handleMovieSelected(action: AnyAction) {
   const movie: ReturnType<typeof movieSelector> = yield select(movieSelector);
   if (!movie) return;
 
+  const currentCinema: ReturnType<typeof currentCinemaSelector> = yield select(
+    currentCinemaSelector
+  );
+  if (currentCinema === undefined) return;
+
   yield put(setCurrentMovie(movie));
   yield put(clearSeances());
-  yield put(fetchSeancesRequest({ movieId: movieId, cinemaId: CinemaId }));
+  yield put(
+    fetchSeancesRequest({
+      movieId: movieId,
+      cinemaId: currentCinema.multikinoId
+    })
+  );
 }
 
 function* watchMovieSelected() {
