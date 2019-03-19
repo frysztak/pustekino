@@ -32,7 +32,6 @@ function* handleFetch() {
     if (storedCinemaId !== null) {
       const cinemaId = parseInt(storedCinemaId);
       yield put(selectCinema(cinemaId));
-      yield put(fetchMovies());
     } else {
       yield put(push("/cinemas"));
     }
@@ -49,5 +48,6 @@ function* watchCinemaSelected() {
 function* handleCinemaSelected(action: AnyAction) {
   const cinemaId = action.payload as number;
   localStorage.setItem(cinemaIdStorageKey, cinemaId.toString());
+  yield put(fetchMovies());
   yield put(push("/"));
 }
