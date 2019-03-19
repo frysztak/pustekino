@@ -16,7 +16,23 @@ const baseUrl = process.env.REACT_APP_API_BASE_URL as string;
 
 function* handleFetch() {
   try {
-    const resp = yield call(callApi, "get", baseUrl, "/movies");
+    const currentCinemaSelector = (state: AppState) =>
+      state.cinemas.currentCinema;
+    const currentCinema: ReturnType<
+      typeof currentCinemaSelector
+    > = yield select(currentCinemaSelector);
+
+    if (currentCinema === undefined) {
+      yield put(fetchError("Cinema is not selected"));
+      return;
+    }
+
+    const resp = yield call(
+      callApi,
+      "get",
+      baseUrl,
+      `/movies/at/${currentCinema.multikinoId}`
+    );
     const movies = resp as Movie[];
     yield put(fetchSuccess(movies));
 
