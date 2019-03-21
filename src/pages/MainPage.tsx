@@ -8,12 +8,12 @@ import { NavBar } from "../components/NavBar";
 import { ConnectedReduxProps, AppState } from "../redux/store";
 import { Movie } from "../redux/movies/types";
 import { fetchRequest, selectMovie } from "../redux/movies/actions";
-import ProgressBar from "react-bootstrap/ProgressBar";
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import { MoviePoster } from "../components/MoviePoster";
 import Row from "react-bootstrap/Row";
 import { Section } from "../components/Section";
+import { Cinema } from "../redux/cinemas/types";
 
 interface OwnProps {}
 
@@ -21,6 +21,7 @@ interface StateProps {
   loading: boolean;
   error: string | undefined;
   movies: Movie[];
+  currentCinema: Cinema | undefined;
 }
 
 interface DispatchProps {
@@ -54,7 +55,7 @@ class MainPage extends Component<Props> {
       <Container>
         <Row>
           <Col>
-            <Section name="Emitowane filmy" />
+            <Section name="Emitowane filmy" cinema={this.props.currentCinema} />
           </Col>
         </Row>
         <Row>
@@ -80,10 +81,11 @@ class MainPage extends Component<Props> {
   }
 }
 
-const mapStateToProps = ({ movies }: AppState): StateProps => ({
+const mapStateToProps = ({ movies, cinemas }: AppState): StateProps => ({
   loading: movies.loading,
   error: movies.errorMessage,
-  movies: movies.movies
+  movies: movies.movies,
+  currentCinema: cinemas.currentCinema
 });
 
 const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({

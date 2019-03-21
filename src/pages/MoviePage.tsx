@@ -16,6 +16,7 @@ import { SeanceGroup } from "../components/SeanceGroup";
 import { PopularityChart } from "../components/PopularityChart";
 import { AllSeances } from "../components/AllSeances";
 import { Section } from "../components/Section";
+import { Cinema } from "../redux/cinemas/types";
 
 interface StateProps {
   movie: Movie | undefined;
@@ -25,6 +26,7 @@ interface StateProps {
   popularity: PopularityPoint[];
   weekends: NumericDate[][];
   popularityLoading: boolean;
+  currentCinema: Cinema | undefined;
 }
 
 interface DispatchProps {
@@ -138,7 +140,10 @@ class MoviePage extends React.Component<Props> {
 
           <Row>
             <Col md={{ span: 10, offset: 2 }} lg={{ span: 10, offset: 2 }}>
-              <Section name="Nadchodzące seanse" />
+              <Section
+                name="Nadchodzące seanse"
+                cinema={this.props.currentCinema}
+              />
             </Col>
           </Row>
 
@@ -183,7 +188,8 @@ const mapStateToProps = (state: AppState): StateProps => ({
   movieHash: state.router.location.hash,
   popularity: state.seances.popularity.points,
   weekends: state.seances.popularity.weekends,
-  popularityLoading: state.seances.popularity.loading
+  popularityLoading: state.seances.popularity.loading,
+  currentCinema: state.cinemas.currentCinema
 });
 
 const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
