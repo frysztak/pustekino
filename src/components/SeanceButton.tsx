@@ -16,7 +16,7 @@ export class SeanceButton extends React.Component<Props> {
     const minutes = ("0" + date.getMinutes()).slice(-2);
 
     let buttonClass = "";
-    if (seance.loading || !seance.seatAvailability) {
+    if (seance.loading) {
       buttonClass = "btn-seat-indicator-loading";
     } else if (seance.errorMessage) {
       buttonClass = "";
