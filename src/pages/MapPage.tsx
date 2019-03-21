@@ -25,6 +25,7 @@ interface StateProps {
   loading: boolean;
   error: string | undefined;
   cinemas: Cinema[];
+  currentCinema: Cinema | undefined;
   map: any;
 }
 
@@ -84,6 +85,18 @@ class MapPage extends React.Component<Props, OwnState> {
       <div>
         <NavBar />
         <Container>
+          {this.props.currentCinema ? (
+            <Row>
+              <Col>
+                <h4 className="mt-2">
+                  {`Aktualne kino: ${this.props.currentCinema.chain} ${
+                    this.props.currentCinema.name
+                  }`}
+                </h4>
+              </Col>
+            </Row>
+          ) : null}
+
           <Row>
             <Col md={4}>
               <Section name="Kina w regionie" />
@@ -128,7 +141,8 @@ const mapStateToProps = ({ cinemas }: AppState): StateProps => ({
   loading: cinemas.loading,
   error: cinemas.errorMessage,
   cinemas: cinemas.cinemas,
-  map: cinemas.map
+  map: cinemas.map,
+  currentCinema: cinemas.currentCinema
 });
 
 const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
