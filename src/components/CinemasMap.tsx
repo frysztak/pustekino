@@ -10,7 +10,7 @@ import {
   MarkerType
 } from "react-simple-maps";
 import { geoContains } from "d3-geo";
-import { MultikinoLogo } from "./MultikinoLogo";
+import { MultikinoMarker } from "./MultikinoMarker";
 
 interface State {
   cinemasInRange: Cinema[];
@@ -25,6 +25,7 @@ interface Props {
   markers: CustomMarker[];
   cinemasInRangeChanged: (cinemas: Cinema[]) => void;
   hoversOverCinema: number;
+  cinemaSelected: (cinemaId: number) => void;
 }
 
 // center of Poland
@@ -41,6 +42,7 @@ export class CinemasMap extends React.Component<Props, State> {
 
     this.handleProvinceClick = this.handleProvinceClick.bind(this);
     this.resetProvince = this.resetProvince.bind(this);
+    this.handleCinemaClick = this.handleCinemaClick.bind(this);
 
     this.props.cinemasInRangeChanged(this.props.cinemas);
   }
@@ -66,6 +68,10 @@ export class CinemasMap extends React.Component<Props, State> {
       selectedProvince: ""
     });
     this.props.cinemasInRangeChanged(this.props.cinemas);
+  }
+
+  handleCinemaClick(cinemaId: number) {
+    this.props.cinemaSelected(cinemaId);
   }
 
   render() {
@@ -107,8 +113,10 @@ export class CinemasMap extends React.Component<Props, State> {
             <Markers>
               {this.props.markers.map((marker, i) => (
                 <Marker key={i} marker={marker}>
-                  <MultikinoLogo
+                  <MultikinoMarker
                     animate={marker.cinemaId === this.props.hoversOverCinema}
+                    cinemaId={marker.cinemaId}
+                    onCinemaClicked={this.handleCinemaClick}
                   />
                 </Marker>
               ))}

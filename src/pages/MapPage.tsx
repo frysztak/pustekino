@@ -128,6 +128,7 @@ class MapPage extends React.Component<Props, OwnState> {
                 markers={markers}
                 hoversOverCinema={this.state.hoversOverCinema}
                 cinemasInRangeChanged={this.cinemasInRangeChanged}
+                cinemaSelected={this.handleCinemaClick}
               />
             </Col>
           </Row>
