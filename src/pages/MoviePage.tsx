@@ -41,10 +41,10 @@ class MoviePage extends React.Component<Props> {
     arr.reduce((acc, cur) => `${acc}, ${cur}`);
 
   private bootstrapGrids = {
-    lg: { span: 3, offset: 2 },
     xl: { span: 2, offset: 2 },
-    md: { span: 3, offset: 1 },
-    sm: { span: 2, offset: 0 }
+    lg: { span: 3, offset: 2 },
+    md: { span: 4, offset: 0 },
+    sm: { span: 6, offset: 0 }
   };
 
   render() {
@@ -120,7 +120,7 @@ class MoviePage extends React.Component<Props> {
         <NavBar cinema={this.props.currentCinema} />
         <Container fluid>
           <Row>
-            <Col md={{ span: 10, offset: 1 }} lg={{ span: 10, offset: 2 }}>
+            <Col md={{ span: 10, offset: 0 }} lg={{ span: 10, offset: 2 }}>
               <h2 className="my-3">{this.props.movie.title_pl}</h2>
             </Col>
           </Row>
@@ -135,17 +135,19 @@ class MoviePage extends React.Component<Props> {
           </Row>
 
           <Row>
-            <Col md={{ span: 8, offset: 2 }}>{{ ...carousel }}</Col>
+            <Col md={{ span: 12, offset: 0 }} lg={{ span: 8, offset: 2 }}>
+              {{ ...carousel }}
+            </Col>
           </Row>
 
           <Row>
-            <Col md={{ span: 10, offset: 2 }} lg={{ span: 10, offset: 2 }}>
+            <Col md={{ span: 10, offset: 0 }} lg={{ span: 10, offset: 2 }}>
               <Section name="Nadchodzące seanse" />
             </Col>
           </Row>
 
           <Row>
-            <Col md={{ span: 8, offset: 2 }} lg={{ span: 6, offset: 2 }}>
+            <Col md={{ span: 8, offset: 0 }} lg={{ span: 6, offset: 2 }}>
               {this.props.seancesLoading ? (
                 <div className="loader" />
               ) : (
@@ -155,13 +157,13 @@ class MoviePage extends React.Component<Props> {
           </Row>
 
           <Row>
-            <Col md={{ span: 10, offset: 2 }} lg={{ span: 10, offset: 2 }}>
+            <Col md={{ span: 10, offset: 0 }} lg={{ span: 10, offset: 2 }}>
               <Section name="Historia zajętych miejsc" />
             </Col>
           </Row>
 
           <Row>
-            <Col md={{ span: 8, offset: 2 }} lg={{ span: 6, offset: 2 }}>
+            <Col md={{ span: 12, offset: 0 }} lg={{ span: 8, offset: 2 }}>
               {this.props.popularityLoading ? (
                 <div className="loader" />
               ) : (
