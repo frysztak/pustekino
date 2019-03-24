@@ -69,17 +69,11 @@
   font-variant: small-caps;
 }
 
-.section-header::after {
-  display: inline-block;
-  content: " ";
-  position: absolute;
-  width: 150px;
+div.separator {
   height: 2px;
-  left: 0;
-  right: 0;
-  margin-left: 25px;
-  margin-right: auto;
-  bottom: 25%;
+  width: 150px;
+  margin-left: 4px;
+  margin-top: 0px;
   background-color: $primary;
 }
 

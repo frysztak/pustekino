@@ -6,6 +6,7 @@ interface Props {
 
 export const Section: React.FC<Props> = ({ name }) => (
   <div className="mb-4 mt-2">
-    <span className="h2 section-header">{name}</span>
+    <h2 className="mb-0 section-header">{name}</h2>
+    <div className="separator" />
   </div>
 );
