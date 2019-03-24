@@ -6,6 +6,28 @@
 @import "./map.scss";
 @import "./pulsate.scss";
 
+.movie-preview-title {
+  font-size: 1.75rem;
+}
+
+@include media-breakpoint-up(sm) {
+  .movie-preview-title {
+    font-size: 2rem;
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .movie-preview-title {
+    font-size: 2.75rem;
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  .movie-preview-title {
+    font-size: 4rem;
+  }
+}
+
 .movie-preview-genres {
   font-size: 18px;
 }
