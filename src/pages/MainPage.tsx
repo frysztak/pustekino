@@ -55,7 +55,7 @@ class MainPage extends Component<Props> {
       <Container>
         <Row>
           <Col>
-            <Section name="Emitowane filmy" cinema={this.props.currentCinema} />
+            <Section name="Emitowane filmy" />
           </Col>
         </Row>
         <Row>
@@ -73,7 +73,7 @@ class MainPage extends Component<Props> {
 
     return (
       <div>
-        <NavBar />
+        <NavBar cinema={this.props.currentCinema} />
         {{ ...carousel }}
         {{ ...posters }}
       </div>

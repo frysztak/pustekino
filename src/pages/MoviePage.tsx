@@ -117,7 +117,7 @@ class MoviePage extends React.Component<Props> {
 
     return (
       <div>
-        <NavBar />
+        <NavBar cinema={this.props.currentCinema} />
         <Container fluid>
           <Row>
             <Col md={{ span: 10, offset: 1 }} lg={{ span: 10, offset: 2 }}>
@@ -140,10 +140,7 @@ class MoviePage extends React.Component<Props> {
 
           <Row>
             <Col md={{ span: 10, offset: 2 }} lg={{ span: 10, offset: 2 }}>
-              <Section
-                name="Nadchodzące seanse"
-                cinema={this.props.currentCinema}
-              />
+              <Section name="Nadchodzące seanse" />
             </Col>
           </Row>
 

@@ -83,7 +83,7 @@ class MapPage extends React.Component<Props, OwnState> {
 
     return (
       <div>
-        <NavBar />
+        <NavBar cinema={this.props.currentCinema} />
         <Container>
           {this.props.currentCinema ? (
             <Row>

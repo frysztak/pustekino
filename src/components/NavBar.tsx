@@ -1,34 +1,36 @@
 import React from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import NavDropdown from "react-bootstrap/NavDropdown";
 import { Link } from "react-router-dom";
+import { ReactComponent as Logo } from "../assets/logo.svg";
+import Container from "react-bootstrap/Container";
+import { Cinema } from "../redux/cinemas/types";
 
-export const NavBar: React.FC = () => (
-  <Navbar
-    className="mx-auto tall-navbar navbar-lighter"
-    variant="dark"
-    expanded={false}
-  >
-    <Link to="/">
+interface Props {
+  cinema: Cinema | undefined;
+}
+
+export const NavBar: React.FC<Props> = ({ cinema }: Props) => (
+  <Navbar className="mx-auto  navbar-lighter" variant="dark" expand="md">
+    <Container>
       <Navbar.Brand>
-        <img src="/logo.svg" height="40" alt="" />
+        <Link to="/">
+          <Logo />
+        </Link>
       </Navbar.Brand>
-    </Link>
 
-    <Navbar.Toggle aria-controls="basic-navbar-nav" />
-    <Navbar.Collapse>
-      <Nav className="justify-content-end d-none">
-        <Nav.Link href="#home">REPERTUAR</Nav.Link>
-        <Nav.Link href="#link">WYDARZENIA</Nav.Link>
-        <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-          <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-          <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-          <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-          <NavDropdown.Divider />
-          <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-        </NavDropdown>
-      </Nav>
-    </Navbar.Collapse>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse>
+        <Nav className="ml-auto">
+          {cinema ? (
+            <Link to="/cinemas">
+              <h5 className="mb-0">
+                {cinema.chain} {cinema.name}
+              </h5>
+            </Link>
+          ) : null}
+        </Nav>
+      </Navbar.Collapse>
+    </Container>
   </Navbar>
 );
