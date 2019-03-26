@@ -5,6 +5,14 @@
 
 @import url("https://fonts.googleapis.com/css?family=Quicksand");
 
+// Body ===================================================================
+
+body,
+html,
+#root {
+  height: 100%;
+}
+
 // Navbar ======================================================================
 
 .navbar {
