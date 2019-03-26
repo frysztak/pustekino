@@ -4,6 +4,8 @@ import { SeanceGroup } from "./SeanceGroup";
 
 interface Props {
   seances: Seances;
+  cinemaId: number;
+  movieId: number;
 }
 
 export class AllSeances extends React.Component<Props> {
@@ -22,17 +24,38 @@ export class AllSeances extends React.Component<Props> {
 
     const result = [];
     if (seances.today.length !== 0) {
-      result.push(<SeanceGroup seances={seances.today} type="today" />);
+      result.push(
+        <SeanceGroup
+          seances={seances.today}
+          type="today"
+          movieId={this.props.movieId}
+          cinemaId={this.props.cinemaId}
+        />
+      );
     }
 
     if (seances.tomorrow.length !== 0) {
       if (result.length !== 0) result.push(<hr />);
-      result.push(<SeanceGroup seances={seances.tomorrow} type="tomorrow" />);
+      result.push(
+        <SeanceGroup
+          seances={seances.tomorrow}
+          type="tomorrow"
+          movieId={this.props.movieId}
+          cinemaId={this.props.cinemaId}
+        />
+      );
     }
 
     if (seances.later.length !== 0) {
       if (result.length !== 0) result.push(<hr />);
-      result.push(<SeanceGroup seances={seances.later} type="later" />);
+      result.push(
+        <SeanceGroup
+          seances={seances.later}
+          type="later"
+          movieId={this.props.movieId}
+          cinemaId={this.props.cinemaId}
+        />
+      );
     }
 
     return result;

@@ -8,6 +8,8 @@ import Col from "react-bootstrap/Col";
 interface Props {
   seances: Seance[] | Seance[][];
   type: "today" | "tomorrow" | "later";
+  cinemaId: number;
+  movieId: number;
 }
 
 interface State {
@@ -85,8 +87,12 @@ export class SeanceGroup extends React.Component<Props, State> {
         <Row>
           {hasSeances ? (
             seances.map((seance, i) => (
-              <Col className="col-auto mb-3 mt-2">
-                <SeanceButton seance={seance} key={i} />
+              <Col className="col-auto mb-3 mt-2" key={i}>
+                <SeanceButton
+                  seance={seance}
+                  movieId={this.props.movieId}
+                  cinemaId={this.props.cinemaId}
+                />
               </Col>
             ))
           ) : (

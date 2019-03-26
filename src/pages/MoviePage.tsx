@@ -151,7 +151,15 @@ class MoviePage extends React.Component<Props> {
               {this.props.seancesLoading ? (
                 <div className="loader" />
               ) : (
-                <AllSeances seances={this.props.seances} />
+                <AllSeances
+                  seances={this.props.seances}
+                  movieId={this.props.movie.multikinoId}
+                  cinemaId={
+                    this.props.currentCinema
+                      ? this.props.currentCinema.multikinoId
+                      : -1
+                  }
+                />
               )}
             </Col>
           </Row>

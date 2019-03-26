@@ -6,9 +6,17 @@ import Tooltip from "react-bootstrap/Tooltip";
 
 interface Props {
   seance: Seance;
+  movieId: number;
+  cinemaId: number;
 }
 
 export class SeanceButton extends React.Component<Props> {
+  private getTicketUrl() {
+    return `https://multikino.pl/kupbilet/${this.props.movieId}/${
+      this.props.cinemaId
+    }/1/${this.props.seance.multikinoId}/wybierz-miejsce`;
+  }
+
   render() {
     const seance = this.props.seance;
     const date = new Date(seance.date);
@@ -34,6 +42,7 @@ export class SeanceButton extends React.Component<Props> {
       <Button
         className={`btn-xl ${buttonClass}`}
         variant="outline-primary"
+        href={this.getTicketUrl()}
       >{`${hours}:${minutes}`}</Button>
     );
 
