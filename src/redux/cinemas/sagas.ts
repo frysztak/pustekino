@@ -49,5 +49,4 @@ function* handleCinemaSelected(action: AnyAction) {
   const cinemaId = action.payload as number;
   localStorage.setItem(cinemaIdStorageKey, cinemaId.toString());
   yield put(fetchMovies());
-  yield put(push("/"));
 }

@@ -13,6 +13,7 @@ import { CustomMarker, CinemasMap } from "../components/CinemasMap";
 import ListGroup from "react-bootstrap/ListGroup";
 import { Section } from "../components/Section";
 import { CinemaListItem } from "../components/CinemaListItem";
+import { push } from "connected-react-router";
 
 interface OwnProps {}
 
@@ -30,8 +31,8 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  load: typeof fetchRequest;
-  selectCinema: typeof selectCinema;
+  load: () => void;
+  selectCinema: (cinemaId: number) => void;
 }
 
 type Props = StateProps & DispatchProps & ConnectedReduxProps;
@@ -136,7 +137,10 @@ const mapStateToProps = ({ cinemas }: AppState): StateProps => ({
 
 const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
   load: () => dispatch(fetchRequest()),
-  selectCinema: (cinemaId: number) => dispatch(selectCinema(cinemaId))
+  selectCinema: (cinemaId: number) => {
+    dispatch(selectCinema(cinemaId));
+    dispatch(push("/"));
+  }
 });
 
 export default withCookies(
