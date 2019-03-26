@@ -2,6 +2,7 @@
   "name": "pustekino",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://frysztak.net/pustekino",
   "dependencies": {
     "@types/jest": "23.3.13",
     "@types/node": "10.12.21",
