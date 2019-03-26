@@ -85,18 +85,6 @@ class MapPage extends React.Component<Props, OwnState> {
       <div>
         <NavBar cinema={this.props.currentCinema} />
         <Container>
-          {this.props.currentCinema ? (
-            <Row>
-              <Col>
-                <h4 className="mt-2">
-                  {`Aktualne kino: ${this.props.currentCinema.chain} ${
-                    this.props.currentCinema.name
-                  }`}
-                </h4>
-              </Col>
-            </Row>
-          ) : null}
-
           <Row>
             <Col md={4}>
               <Section name="Kina w regionie" />
