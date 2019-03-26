@@ -7,7 +7,7 @@ import {
   combineReducers
 } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
-import { createBrowserHistory } from "history";
+import { createHashHistory } from "history";
 import {
   routerMiddleware,
   connectRouter,
@@ -29,7 +29,7 @@ const composeEnhancers = composeWithDevTools({
   trace: true
 });
 
-export const history = createBrowserHistory();
+export const history = createHashHistory();
 
 export const rootReducer = combineReducers<AppState>({
   router: connectRouter(history),
