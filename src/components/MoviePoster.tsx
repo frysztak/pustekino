@@ -2,7 +2,6 @@ import React from "react";
 import { Movie } from "../redux/movies/types";
 import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
-import { checkPropTypes } from "prop-types";
 
 export interface MoviePosterProps {
   movie: Movie;
@@ -13,7 +12,7 @@ export const MoviePoster: React.FC<MoviePosterProps> = ({
   movie,
   clickHandler
 }) => (
-  <Card className="text-center mt-3 bg-transparent" style={{ width: "15em" }}>
+  <Card className="text-center mt-3 bg-transparent movie-poster">
     <Card.Img variant="top" src={movie.poster_url} height="300rem" />
     <Card.Body>
       <Link
