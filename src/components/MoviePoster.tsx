@@ -13,7 +13,7 @@ export const MoviePoster: React.FC<MoviePosterProps> = ({
   clickHandler
 }) => (
   <Card className="text-center mt-3 bg-transparent movie-poster">
-    <Card.Img variant="top" src={movie.poster_url} height="300rem" />
+    <Card.Img variant="top" src={movie.poster_url} />
     <Card.Body>
       <Link
         to={{ pathname: "/movie", hash: movie.multikinoId.toString() }}

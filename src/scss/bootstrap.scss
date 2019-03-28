@@ -97,6 +97,12 @@ a.card-title:hover {
   width: 12em;
 }
 
+@include media-breakpoint-up(md) {
+  .movie-poster {
+    width: 14em;
+  }
+}
+
 .scrollable-list {
   max-height: 400px;
   overflow-y: auto;
