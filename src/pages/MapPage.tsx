@@ -88,7 +88,7 @@ class MapPage extends React.Component<Props, OwnState> {
         <Container>
           <Row>
             <Col md={4}>
-              <Section name="Kina w regionie" />
+              <Section name="Wybierz kino" />
             </Col>
           </Row>
 
