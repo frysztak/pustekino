@@ -12,7 +12,7 @@ export const MoviePoster: React.FC<MoviePosterProps> = ({
   movie,
   clickHandler
 }) => (
-  <Card className="text-center mt-3 bg-transparent movie-poster">
+  <Card className="text-center mx-auto mt-3 bg-transparent movie-poster">
     <Card.Img variant="top" src={movie.poster_url} />
     <Card.Body>
       <Link
